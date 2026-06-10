@@ -1,0 +1,199 @@
+{
+  "$ref": "#/definitions/SkinManifest",
+  "definitions": {
+    "SkinManifest": {
+      "type": "object",
+      "properties": {
+        "contract": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "minClient": {
+          "type": "string"
+        },
+        "requires": {
+          "type": "object",
+          "properties": {
+            "regions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "app-shell",
+                  "sidebar",
+                  "topbar",
+                  "topbar-lead",
+                  "topbar-actions",
+                  "sidebar-nav",
+                  "sidebar-brand",
+                  "main"
+                ]
+              },
+              "default": []
+            },
+            "parts": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "nav-item",
+                  "nav-group",
+                  "button",
+                  "card",
+                  "panel",
+                  "input",
+                  "modal",
+                  "tab",
+                  "table",
+                  "pill",
+                  "badge"
+                ]
+              },
+              "default": []
+            }
+          },
+          "additionalProperties": false,
+          "default": {
+            "regions": [],
+            "parts": []
+          }
+        },
+        "modes": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "default"
+          ],
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "tokens": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "tokens"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "styles": {
+          "type": "string"
+        },
+        "layout": {
+          "type": "object",
+          "properties": {
+            "sidebar": {
+              "type": "string",
+              "enum": [
+                "left",
+                "right"
+              ]
+            },
+            "nav": {
+              "type": "object",
+              "properties": {
+                "order": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "/",
+                      "/discover",
+                      "/my",
+                      "/chat",
+                      "/settings/providers",
+                      "/settings/general",
+                      "/settings/tools",
+                      "/settings/diagnostics",
+                      "discover",
+                      "my-stuff",
+                      "agents",
+                      "expert",
+                      "developer",
+                      "settings"
+                    ]
+                  }
+                },
+                "hide": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SkinManifest/properties/layout/properties/nav/properties/order/items"
+                  }
+                }
+              },
+              "additionalProperties": false
+            },
+            "topbarWidgets": {
+              "type": "object",
+              "properties": {
+                "order": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "ActiveAgentPill",
+                      "SetupTrail",
+                      "CommandPalette",
+                      "ThemeToggleButton",
+                      "AdvancedModeToggle",
+                      "LocaleSwitcher",
+                      "RegionPill",
+                      "BalancePill",
+                      "UpdateReadyPill",
+                      "UserMenuLink",
+                      "VersionLabel"
+                    ]
+                  }
+                },
+                "hide": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/SkinManifest/properties/layout/properties/topbarWidgets/properties/order/items"
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "preview": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contract",
+        "id",
+        "name",
+        "version",
+        "modes"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

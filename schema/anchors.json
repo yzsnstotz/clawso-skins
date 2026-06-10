@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://clawso.ai/schema/skin/anchors.json",
+  "anchorVersion": "1.0",
+  "contract": "1.0",
+  "count": 19,
+  "regions": [
+    "app-shell",
+    "sidebar",
+    "topbar",
+    "topbar-lead",
+    "topbar-actions",
+    "sidebar-nav",
+    "sidebar-brand",
+    "main"
+  ],
+  "parts": [
+    "nav-item",
+    "nav-group",
+    "button",
+    "card",
+    "panel",
+    "input",
+    "modal",
+    "tab",
+    "table",
+    "pill",
+    "badge"
+  ]
+}

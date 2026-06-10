@@ -1,0 +1,349 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://clawso.ai/schema/skin/tokens.schema.json",
+  "title": "SkinTokens",
+  "contract": "1.0",
+  "categories": [
+    "surface",
+    "content",
+    "border",
+    "accent",
+    "semantic",
+    "font",
+    "radius",
+    "shadow",
+    "motion"
+  ],
+  "slotCount": 47,
+  "slots": [
+    {
+      "slot": "surface.base",
+      "category": "surface",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "App background / lowest surface (legacy --paper)."
+    },
+    {
+      "slot": "surface.raised",
+      "category": "surface",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Slightly raised surface above base (legacy --paper-2)."
+    },
+    {
+      "slot": "surface.sunken",
+      "category": "surface",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Recessed/inset surface below base (legacy --paper-3)."
+    },
+    {
+      "slot": "surface.overlay",
+      "category": "surface",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Floating surface: cards, popovers, modals (legacy --paper-card)."
+    },
+    {
+      "slot": "content.primary",
+      "category": "content",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Primary text/icon color (legacy --ink)."
+    },
+    {
+      "slot": "content.secondary",
+      "category": "content",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Secondary/supporting text (legacy --ink-soft)."
+    },
+    {
+      "slot": "content.muted",
+      "category": "content",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Muted text: captions, metadata (legacy --ink-quiet)."
+    },
+    {
+      "slot": "content.faint",
+      "category": "content",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Faintest text: placeholder/disabled (legacy --ink-faint)."
+    },
+    {
+      "slot": "content.on-accent",
+      "category": "content",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Text/icon color on top of an accent fill (CONTRACT GAP: improvised per-component today)."
+    },
+    {
+      "slot": "border.subtle",
+      "category": "border",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Low-contrast hairline rules (legacy --rule / --rule-soft)."
+    },
+    {
+      "slot": "border.strong",
+      "category": "border",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "High-contrast separators (legacy --rule-strong)."
+    },
+    {
+      "slot": "border.focus",
+      "category": "border",
+      "valueType": "color",
+      "modeSensitive": false,
+      "description": "Focus-ring color (CONTRACT GAP: hardcoded `outline:2px solid var(--ember)` today)."
+    },
+    {
+      "slot": "accent.base",
+      "category": "accent",
+      "valueType": "color",
+      "modeSensitive": false,
+      "description": "Brand accent fill (legacy --ember). Brand-fixed across modes."
+    },
+    {
+      "slot": "accent.hover",
+      "category": "accent",
+      "valueType": "color",
+      "modeSensitive": false,
+      "description": "Brighter accent for hover/active (legacy --ember-bright)."
+    },
+    {
+      "slot": "accent.contrast",
+      "category": "accent",
+      "valueType": "color",
+      "modeSensitive": false,
+      "description": "Deep accent for accent-colored text on light surfaces (legacy --ember-deep)."
+    },
+    {
+      "slot": "accent.surface",
+      "category": "accent",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Tinted accent fill / soft focus ring (legacy --ember-tint)."
+    },
+    {
+      "slot": "semantic.success",
+      "category": "semantic",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Success/positive state (legacy --leaf)."
+    },
+    {
+      "slot": "semantic.success-surface",
+      "category": "semantic",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Tinted success fill (CONTRACT GAP: color-mix/rgba literals today)."
+    },
+    {
+      "slot": "semantic.danger",
+      "category": "semantic",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Danger/destructive state (legacy --rust, split from warning)."
+    },
+    {
+      "slot": "semantic.danger-surface",
+      "category": "semantic",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Tinted danger fill (CONTRACT GAP)."
+    },
+    {
+      "slot": "semantic.warning",
+      "category": "semantic",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Warning/amber state (CONTRACT GAP: --rust doubled as this; pulse-amber hardcodes #d97706)."
+    },
+    {
+      "slot": "semantic.warning-surface",
+      "category": "semantic",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Tinted warning fill (CONTRACT GAP)."
+    },
+    {
+      "slot": "semantic.info",
+      "category": "semantic",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Informational state (legacy --info)."
+    },
+    {
+      "slot": "semantic.info-surface",
+      "category": "semantic",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Tinted info fill (CONTRACT GAP)."
+    },
+    {
+      "slot": "font.display",
+      "category": "font",
+      "valueType": "font-stack",
+      "modeSensitive": false,
+      "description": "Display/serif headline stack (legacy --serif)."
+    },
+    {
+      "slot": "font.sans",
+      "category": "font",
+      "valueType": "font-stack",
+      "modeSensitive": false,
+      "description": "Primary UI sans stack (legacy --sans)."
+    },
+    {
+      "slot": "font.mono",
+      "category": "font",
+      "valueType": "font-stack",
+      "modeSensitive": false,
+      "description": "Monospace stack (legacy --mono / alias --font-mono)."
+    },
+    {
+      "slot": "font.cjk",
+      "category": "font",
+      "valueType": "font-stack",
+      "modeSensitive": false,
+      "description": "CJK fallback stack for i18n locales (CONTRACT GAP: no token exists today)."
+    },
+    {
+      "slot": "radius.xs",
+      "category": "radius",
+      "valueType": "length",
+      "modeSensitive": false,
+      "description": "Extra-small radius (legacy --radius-xs)."
+    },
+    {
+      "slot": "radius.sm",
+      "category": "radius",
+      "valueType": "length",
+      "modeSensitive": false,
+      "description": "Small radius (legacy --radius-sm)."
+    },
+    {
+      "slot": "radius.md",
+      "category": "radius",
+      "valueType": "length",
+      "modeSensitive": false,
+      "description": "Base radius (legacy --radius)."
+    },
+    {
+      "slot": "radius.lg",
+      "category": "radius",
+      "valueType": "length",
+      "modeSensitive": false,
+      "description": "Large radius (legacy --radius-lg)."
+    },
+    {
+      "slot": "radius.xl",
+      "category": "radius",
+      "valueType": "length",
+      "modeSensitive": false,
+      "description": "Extra-large radius (legacy --radius-xl)."
+    },
+    {
+      "slot": "radius.pill",
+      "category": "radius",
+      "valueType": "length",
+      "modeSensitive": false,
+      "description": "Fully-rounded pill radius (CONTRACT GAP: hardcoded 999px today)."
+    },
+    {
+      "slot": "shadow.sm",
+      "category": "shadow",
+      "valueType": "shadow",
+      "modeSensitive": true,
+      "description": "Subtle elevation shadow."
+    },
+    {
+      "slot": "shadow.md",
+      "category": "shadow",
+      "valueType": "shadow",
+      "modeSensitive": true,
+      "description": "Medium elevation shadow."
+    },
+    {
+      "slot": "shadow.lg",
+      "category": "shadow",
+      "valueType": "shadow",
+      "modeSensitive": true,
+      "description": "Large elevation shadow (referenced as --shadow-lg with no fallback today)."
+    },
+    {
+      "slot": "shadow.xl",
+      "category": "shadow",
+      "valueType": "shadow",
+      "modeSensitive": true,
+      "description": "Extra-large elevation shadow."
+    },
+    {
+      "slot": "motion.ease",
+      "category": "motion",
+      "valueType": "easing",
+      "modeSensitive": false,
+      "description": "Default standard easing (legacy --ease)."
+    },
+    {
+      "slot": "motion.ease-out",
+      "category": "motion",
+      "valueType": "easing",
+      "modeSensitive": false,
+      "description": "Decelerate easing (legacy --ease-out)."
+    },
+    {
+      "slot": "motion.spring",
+      "category": "motion",
+      "valueType": "easing",
+      "modeSensitive": false,
+      "description": "Spring/overshoot easing (CONTRACT GAP: inline fallback only today)."
+    },
+    {
+      "slot": "motion.duration-fast",
+      "category": "motion",
+      "valueType": "duration",
+      "modeSensitive": false,
+      "description": "Fast duration (legacy --t-fast)."
+    },
+    {
+      "slot": "motion.duration-base",
+      "category": "motion",
+      "valueType": "duration",
+      "modeSensitive": false,
+      "description": "Base duration (legacy --t-base)."
+    },
+    {
+      "slot": "motion.duration-slow",
+      "category": "motion",
+      "valueType": "duration",
+      "modeSensitive": false,
+      "description": "Slow duration (legacy --t-slow)."
+    },
+    {
+      "slot": "motion.duration-hover",
+      "category": "motion",
+      "valueType": "duration",
+      "modeSensitive": false,
+      "description": "Hover-transition duration (CONTRACT GAP: inline fallback 140ms today)."
+    },
+    {
+      "slot": "motion.duration-modal-enter",
+      "category": "motion",
+      "valueType": "duration",
+      "modeSensitive": false,
+      "description": "Modal-enter duration (CONTRACT GAP: inline fallback 220ms today)."
+    },
+    {
+      "slot": "motion.duration-page",
+      "category": "motion",
+      "valueType": "duration",
+      "modeSensitive": false,
+      "description": "Page-transition duration (CONTRACT GAP: referenced, no fallback today)."
+    }
+  ]
+}
