@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clawso shell snapshot — skin preview fixture</title>
+    <!--
+      shell-snapshot.html — SELF-CONTAINED static preview of the Clawso shell.
+
+      GENERATED preview fixture. Regenerated per client release; it WILL drift.
+      The CONTRACT is the set of anchors + class names below ([data-region],
+      [data-part], .client-*). The CONTENT (labels, icons, copy) is illustrative
+      placeholder only — no live data.
+
+      Source of truth (clawso monorepo, branch feat/skin-system-v1):
+        - apps/client/src/components/AppShell.tsx          (DOM structure + anchors)
+        - apps/client/src/styles/client-shell.css          (.client-* rules)
+        - packages/design-system/src/tokens.css            (:root design tokens)
+
+      Skins target the [data-region] / [data-part] anchors and override the
+      design tokens (:root custom properties). Toggle [data-theme] on <html>
+      to "dark" to preview the dark mode token set.
+    -->
+    <style>
+      /* =====================================================================
+         Design tokens — copied verbatim from
+         packages/design-system/src/tokens.css (:root, [data-theme="dark"]).
+         A skin overrides these custom properties; the loader projects a
+         skin's semantic slot values onto these var names (see
+         schema/token-var-map.json).
+         ===================================================================== */
+      :root {
+        /* ---- surface (light, slightly warm — never pure white) */
+        --paper:        #fafaf7;
+        --paper-2:      #f4f2ed;
+        --paper-3:      #ecebe5;
+        --paper-card:   #ffffff;
+
+        /* ---- ink (text) */
+        --ink:          #15161d;
+        --ink-soft:     #4a4c57;
+        --ink-quiet:    #84858f;
+        --ink-faint:    #b6b6bd;
+
+        /* ---- rule (always near-invisible) */
+        --rule:         rgba(21,22,29,0.08);
+        --rule-soft:    rgba(21,22,29,0.05);
+        --rule-strong:  rgba(21,22,29,0.16);
+
+        /* ---- ember (claw accent — singular, used sparingly) */
+        --ember:        #eb7b2d;
+        --ember-bright: #ff9243;
+        --ember-deep:   #b85a13;
+        --ember-tint:   rgba(235,123,45,0.08);
+
+        /* ---- semantic (kept quiet) */
+        --info:         #3f6f9f;
+        --leaf:         #5a8c4f;
+        --rust:         #a8472b;
+
+        /* ---- type */
+        --sans:    "Geist", -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+        --mono:    "Geist Mono", ui-monospace, "JetBrains Mono", monospace;
+        --serif:   "Fraunces", "Times New Roman", serif;
+
+        /* ---- type metrics (small + technical) */
+        --t-mono-eyebrow: 11px;
+        --t-mono-label:   11px;
+        --t-body-sm:      13px;
+        --t-body:         14px;
+        --t-body-lg:      15px;
+        --t-h4:           18px;
+        --t-h3:           22px;
+        --t-h2:           32px;
+        --t-h1:           clamp(40px, 5.2vw, 64px);
+
+        --tracking-display: -0.022em;
+        --tracking-tight:   -0.012em;
+        --tracking-mono:     0.02em;
+        --tracking-eyebrow:  0.12em;
+
+        /* ---- rhythm (generous) */
+        --gutter:        clamp(20px, 5vw, 56px);
+        --baseline:      24px;
+
+        /* ---- shape */
+        --radius-xs:     2px;
+        --radius-sm:     4px;
+        --radius:        6px;
+        --radius-lg:     10px;
+        --radius-xl:     16px;
+
+        /* ---- motion */
+        --ease:          cubic-bezier(0.2, 0.7, 0.1, 1);
+        --ease-out:      cubic-bezier(0, 0, 0.2, 1);
+        --t-fast:        160ms;
+        --t-base:        240ms;
+        --t-slow:        420ms;
+
+        /* ---- contract-gap fallbacks (no token in tokens.css yet; the
+               real shell uses inline fallbacks. Listed here so the fixture
+               renders standalone). */
+        --shadow-lg:            0 14px 36px rgba(21, 22, 29, 0.10);
+        --ease-spring:          cubic-bezier(0.34, 1.56, 0.64, 1);
+        --duration-hover:       140ms;
+        --duration-modal-enter: 220ms;
+        --duration-page:        320ms;
+        --font-mono:            var(--mono);
+      }
+
+      [data-theme="dark"] {
+        color-scheme: dark;
+
+        --paper:        #15161d;
+        --paper-2:      #1c1d23;
+        --paper-3:      #25262d;
+        --paper-card:   #101116;
+
+        --ink:          #fafaf7;
+        --ink-soft:     #d5d3cc;
+        --ink-quiet:    #a4a29b;
+        --ink-faint:    #73736d;
+
+        --rule:         rgba(250,250,247,0.10);
+        --rule-soft:    rgba(250,250,247,0.06);
+        --rule-strong:  rgba(250,250,247,0.20);
+
+        --ember:        #eb7b2d;
+        --ember-bright: #ff9243;
+        --ember-deep:   #b85a13;
+        --ember-tint:   rgba(235,123,45,0.14);
+
+        --leaf:         #79a86e;
+        --info:         #7ca7cf;
+        --rust:         #c56044;
+
+        --shadow-lg:    0 14px 36px rgba(0, 0, 0, 0.45);
+      }
+
+      /* =====================================================================
+         Resets — calm, tight defaults (from tokens.css).
+         ===================================================================== */
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+      html { font-size: 16px; }
+      body {
+        font-family: var(--sans);
+        font-size: var(--t-body);
+        line-height: 1.55;
+        color: var(--ink);
+        background: var(--paper);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        overflow: hidden;
+      }
+      img, svg { display: block; max-width: 100%; }
+      a { color: inherit; text-decoration: none; }
+      button { font-family: inherit; }
+      ::selection { background: var(--ember); color: var(--paper); }
+
+      /* claw-mark — the brand motif (three skewed slashes). */
+      .claw-mark { display: inline-flex; gap: 3px; align-items: flex-end; height: 14px; }
+      .claw-mark span { display: block; width: 2px; height: 14px; background: var(--ember); transform: skewX(-18deg); }
+      .claw-mark span:nth-child(2) { background: var(--ember-bright); height: 16px; }
+      .claw-mark span:nth-child(3) { background: var(--ember-deep); height: 12px; }
+
+      /* =====================================================================
+         Shell grid + sidebar + topbar + main.
+         Copied from apps/client/src/styles/client-shell.css (the .client-*
+         rules the shell renders with). Only the load-bearing rules are kept;
+         rail-mode + page-specific blocks are omitted for the static preview.
+         ===================================================================== */
+      .client-shell {
+        display: grid;
+        height: 100vh;
+        min-height: 0;
+        grid-template-columns: 248px minmax(0, 1fr);
+        grid-template-rows: 54px minmax(0, 1fr);
+        grid-template-areas:
+          "sidebar topbar"
+          "sidebar main";
+        background: var(--paper);
+        color: var(--ink);
+      }
+      .client-shell[data-sidebar="right"] {
+        grid-template-columns: minmax(0, 1fr) 248px;
+        grid-template-areas:
+          "topbar sidebar"
+          "main sidebar";
+      }
+
+      /* ---- Sidebar ---- */
+      .client-sidebar {
+        grid-area: sidebar;
+        display: flex;
+        min-height: 0;
+        flex-direction: column;
+        border-right: 1px solid var(--rule);
+        background: var(--paper-2);
+      }
+      .client-sidebar__brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-height: 54px;
+        border-bottom: 1px solid var(--rule);
+        padding: 0 18px;
+        color: var(--ink);
+        font-size: var(--t-body);
+        font-weight: 600;
+      }
+      .client-sidebar__brand span { color: var(--ember); }
+      .client-sidebar__nav {
+        display: grid;
+        gap: 6px;
+        overflow-y: auto;
+        padding: 16px 12px 22px;
+      }
+      .client-sidebar__group { display: grid; gap: 0; }
+      .client-sidebar__group-header {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+        min-height: 28px;
+        margin: 0;
+        padding: 0 9px 0 8px;
+        background: transparent;
+        border: 0;
+        border-radius: var(--radius-sm);
+        color: var(--ink-quiet);
+        font-family: var(--mono);
+        font-size: var(--t-mono-label);
+        letter-spacing: var(--tracking-eyebrow);
+        text-transform: uppercase;
+        cursor: pointer;
+        text-align: left;
+        transition: color var(--t-fast) var(--ease);
+      }
+      .client-sidebar__group-header > .client-sidebar__chevron { margin-left: auto; }
+      .client-sidebar__group-header:hover { color: var(--ink-soft); }
+      .client-sidebar__chevron {
+        flex: 0 0 auto;
+        color: var(--ink-faint);
+        transition: transform var(--t-fast) var(--ease);
+      }
+      .client-sidebar__group[data-open="false"] .client-sidebar__group-header .client-sidebar__chevron {
+        transform: rotate(-90deg);
+      }
+      .client-sidebar__group-content-inner { display: grid; gap: 2px; min-height: 0; }
+      .client-sidebar__item {
+        position: relative;
+        display: flex;
+        min-height: 34px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border-radius: var(--radius-sm);
+        color: var(--ink-soft);
+        font-size: var(--t-body-sm);
+        padding: 0 9px 0 14px;
+        transition:
+          background var(--duration-hover) var(--ease),
+          color var(--duration-hover) var(--ease);
+      }
+      .client-sidebar__item::before {
+        position: absolute;
+        top: 7px;
+        bottom: 7px;
+        left: 0;
+        width: 3px;
+        border-radius: 0 2px 2px 0;
+        background: transparent;
+        content: "";
+      }
+      .client-sidebar__item:hover { background: var(--paper-3); color: var(--ink); }
+      .client-sidebar__item.is-active { color: var(--ink); }
+      .client-sidebar__item.is-active::before { background: var(--ember); }
+      .client-sidebar__item small {
+        color: var(--ember);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: var(--tracking-mono);
+      }
+      .client-sidebar__item-icon { flex: 0 0 auto; color: var(--ink-quiet); }
+      .client-sidebar__item:hover .client-sidebar__item-icon,
+      .client-sidebar__item.is-active .client-sidebar__item-icon { color: var(--ink); }
+      .client-sidebar__item-label {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .client-sidebar__group-icon { color: var(--ink-faint); flex: 0 0 auto; }
+      .client-sidebar__group-label { flex: 1 1 auto; }
+
+      /* ---- Topbar ---- */
+      .client-topbar {
+        grid-area: topbar;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        min-width: 0;
+        border-bottom: 1px solid var(--rule);
+        background: var(--paper);
+        padding: 0 24px;
+      }
+      .client-topbar__lead { display: flex; flex: 1; min-width: 0; align-items: center; gap: 12px; }
+      .client-topbar__actions { display: flex; align-items: center; gap: 9px; margin-left: auto; }
+      .client-topbar__version {
+        color: var(--ink-quiet);
+        font-family: var(--mono);
+        font-size: var(--t-mono-label);
+        letter-spacing: var(--tracking-mono);
+        text-transform: uppercase;
+      }
+      .client-topbar__pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 26px;
+        border: 1px solid var(--rule);
+        border-radius: var(--radius-sm);
+        background: var(--paper-2);
+        color: var(--ink-soft);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: var(--tracking-mono);
+        padding: 0 9px;
+        text-transform: uppercase;
+      }
+      .client-topbar__pill--ember { border-color: var(--ember); color: var(--ember-deep); }
+
+      /* ---- Buttons (shell primitive) ---- */
+      .client-button {
+        display: inline-flex;
+        min-height: 28px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--ink);
+        border-radius: var(--radius-sm);
+        background: var(--ink);
+        color: var(--paper);
+        cursor: pointer;
+        font-size: var(--t-body-sm);
+        font-weight: 500;
+        padding: 6px 10px;
+      }
+      .client-button--ghost {
+        border-color: var(--rule-strong);
+        background: transparent;
+        color: var(--ink-soft);
+      }
+      .client-button--ghost:hover { border-color: var(--ink); color: var(--ink); }
+
+      /* ---- Main ---- */
+      .client-shell__main {
+        grid-area: main;
+        min-width: 0;
+        overflow: auto;
+        padding: 38px clamp(24px, 4vw, 56px) 72px;
+      }
+      .client-route-stub {
+        display: grid;
+        max-width: 760px;
+        gap: 14px;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 26px;
+      }
+      .client-route-stub h1 {
+        font-size: var(--t-h2);
+        font-weight: 500;
+        letter-spacing: var(--tracking-display);
+        line-height: 1.08;
+      }
+
+      /* eyebrow — small mono caps with a quiet leader dot (tokens.css). */
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: var(--t-mono-eyebrow);
+        font-weight: 400;
+        letter-spacing: var(--tracking-eyebrow);
+        text-transform: uppercase;
+        color: var(--ink-quiet);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: var(--ember);
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* =====================================================================
+         Reserved-part primitives (card / panel / input / tab / table / modal).
+         These anchors are RESERVED in the contract (anchors.json) but not yet
+         authored in the shell CSS. The styling below is ILLUSTRATIVE so the
+         preview shows representative content — skins should target the
+         [data-part] anchors, not these class names.
+         ===================================================================== */
+      .preview-section { display: grid; gap: 18px; max-width: 760px; margin-top: 28px; }
+      .preview-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+      .client-card {
+        display: grid;
+        gap: 8px;
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        background: var(--paper-card);
+        box-shadow: var(--shadow-lg);
+        padding: 18px 20px;
+      }
+      .client-card__title { font-size: var(--t-h4); font-weight: 600; }
+      .client-card__body { color: var(--ink-soft); font-size: var(--t-body-sm); }
+
+      .client-panel {
+        display: grid;
+        gap: 10px;
+        border: 1px solid var(--rule);
+        border-left: 2px solid var(--ember);
+        border-radius: var(--radius-sm);
+        background: var(--paper-2);
+        padding: 16px 18px;
+      }
+      .client-panel__eyebrow {
+        color: var(--ink-quiet);
+        font-family: var(--mono);
+        font-size: var(--t-mono-eyebrow);
+        letter-spacing: var(--tracking-eyebrow);
+        text-transform: uppercase;
+      }
+      .client-panel__body { color: var(--ink-soft); font-size: var(--t-body-sm); }
+
+      .client-input {
+        width: 100%;
+        border: 1px solid var(--rule);
+        border-radius: var(--radius-sm);
+        background: var(--paper-3);
+        color: var(--ink);
+        font-size: var(--t-body-sm);
+        padding: 10px 11px;
+      }
+      .client-input:focus { border-color: var(--ember); outline: 2px solid var(--ember-tint); }
+
+      .client-tabs {
+        display: inline-grid;
+        grid-auto-flow: column;
+        gap: 6px;
+        border: 1px solid var(--rule);
+        border-radius: var(--radius-sm);
+        background: var(--paper-2);
+        padding: 4px;
+      }
+      .client-tab {
+        border: 0;
+        border-radius: var(--radius-sm);
+        background: transparent;
+        color: var(--ink-soft);
+        cursor: pointer;
+        font-family: var(--mono);
+        font-size: var(--t-mono-label);
+        letter-spacing: var(--tracking-mono);
+        padding: 8px 14px;
+        text-transform: uppercase;
+      }
+      .client-tab.is-active {
+        background: var(--paper-card);
+        color: var(--ink);
+        box-shadow: inset 0 -2px 0 var(--ember);
+      }
+
+      .client-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        overflow: hidden;
+        font-size: var(--t-body-sm);
+      }
+      .client-table thead th {
+        text-align: left;
+        background: var(--paper-2);
+        color: var(--ink-quiet);
+        font-family: var(--mono);
+        font-size: var(--t-mono-label);
+        letter-spacing: var(--tracking-mono);
+        text-transform: uppercase;
+        font-weight: 400;
+        padding: 10px 14px;
+      }
+      .client-table tbody td {
+        padding: 10px 14px;
+        border-top: 1px solid var(--rule);
+        color: var(--ink-soft);
+      }
+
+      /* Modal — illustrative inline preview (not a live overlay). Mirrors the
+         scrim + card material used by the real CommandPalette / dialogs. */
+      .client-modal-scrim {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        border: 1px dashed var(--rule-strong);
+        border-radius: var(--radius);
+        background: var(--paper-3);
+        padding: 28px 16px;
+      }
+      .client-modal {
+        width: min(420px, 100%);
+        display: grid;
+        gap: 14px;
+        border: 1px solid var(--rule);
+        border-radius: var(--radius);
+        background: var(--paper-card);
+        box-shadow: var(--shadow-lg);
+        padding: 20px 22px;
+      }
+      .client-modal__title { font-size: var(--t-h4); font-weight: 600; }
+      .client-modal__body { color: var(--ink-soft); font-size: var(--t-body-sm); }
+      .client-modal__actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+      .client-badge {
+        display: inline-flex;
+        align-items: center;
+        color: var(--ember);
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: var(--tracking-mono);
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      DOM mirrors apps/client/src/components/AppShell.tsx. Every [data-region]
+      and [data-part] below is a published anchor (schema/anchors.json).
+    -->
+    <div class="client-shell" data-region="app-shell">
+      <!-- ── Sidebar ─────────────────────────────────────────────────────── -->
+      <aside class="client-sidebar" data-region="sidebar">
+        <a class="client-sidebar__brand" data-region="sidebar-brand" href="#" aria-label="clawso">
+          <span class="claw-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <strong><span>claw</span>so</strong>
+        </a>
+
+        <nav class="client-sidebar__nav" data-region="sidebar-nav">
+          <!-- Group: Home -->
+          <section class="client-sidebar__group" data-part="nav-group" data-open="true">
+            <button type="button" class="client-sidebar__group-header" aria-expanded="true">
+              <span class="client-sidebar__group-icon" aria-hidden="true">⌂</span>
+              <span class="client-sidebar__group-label">Home</span>
+              <span class="client-sidebar__chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="client-sidebar__group-content">
+              <div class="client-sidebar__group-content-inner">
+                <a class="client-sidebar__item is-active" data-part="nav-item" href="#">
+                  <span class="client-sidebar__item-icon" aria-hidden="true">●</span>
+                  <span class="client-sidebar__item-label">Home</span>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Group: Discover -->
+          <section class="client-sidebar__group" data-part="nav-group" data-open="true">
+            <button type="button" class="client-sidebar__group-header" aria-expanded="true">
+              <span class="client-sidebar__group-icon" aria-hidden="true">◇</span>
+              <span class="client-sidebar__group-label">Discover</span>
+              <span class="client-sidebar__chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="client-sidebar__group-content">
+              <div class="client-sidebar__group-content-inner">
+                <a class="client-sidebar__item" data-part="nav-item" href="#">
+                  <span class="client-sidebar__item-icon" aria-hidden="true">◇</span>
+                  <span class="client-sidebar__item-label">Discover</span>
+                  <small data-part="badge">New</small>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Group: My Library -->
+          <section class="client-sidebar__group" data-part="nav-group" data-open="true">
+            <button type="button" class="client-sidebar__group-header" aria-expanded="true">
+              <span class="client-sidebar__group-icon" aria-hidden="true">⚒</span>
+              <span class="client-sidebar__group-label">My Library</span>
+              <span class="client-sidebar__chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="client-sidebar__group-content">
+              <div class="client-sidebar__group-content-inner">
+                <a class="client-sidebar__item" data-part="nav-item" href="#">
+                  <span class="client-sidebar__item-icon" aria-hidden="true">⚒</span>
+                  <span class="client-sidebar__item-label">My tools</span>
+                </a>
+              </div>
+            </div>
+          </section>
+
+          <!-- Group: Settings (collapsed example) -->
+          <section class="client-sidebar__group" data-part="nav-group" data-open="false">
+            <button type="button" class="client-sidebar__group-header" aria-expanded="false">
+              <span class="client-sidebar__group-icon" aria-hidden="true">⚙</span>
+              <span class="client-sidebar__group-label">Settings</span>
+              <span class="client-sidebar__chevron" aria-hidden="true">▾</span>
+            </button>
+            <div class="client-sidebar__group-content">
+              <div class="client-sidebar__group-content-inner">
+                <a class="client-sidebar__item" data-part="nav-item" href="#">
+                  <span class="client-sidebar__item-icon" aria-hidden="true">⚙</span>
+                  <span class="client-sidebar__item-label">General</span>
+                </a>
+              </div>
+            </div>
+          </section>
+        </nav>
+      </aside>
+
+      <!-- ── Topbar ──────────────────────────────────────────────────────── -->
+      <header class="client-topbar" data-region="topbar">
+        <div class="client-topbar__lead" data-region="topbar-lead">
+          <span class="client-topbar__pill" data-part="pill">Agent · Claw</span>
+          <span class="client-topbar__pill" data-part="pill">⌘K Search</span>
+        </div>
+        <div class="client-topbar__actions" data-region="topbar-actions">
+          <button type="button" class="client-button client-button--ghost" data-part="button" title="Toggle theme">☾</button>
+          <span class="client-topbar__pill" data-part="pill">Global</span>
+          <a class="client-topbar__pill client-topbar__pill--ember" data-part="pill" href="#">1,280 pts</a>
+          <a class="client-button client-button--ghost" data-part="button" href="#">Account</a>
+          <span class="client-topbar__version">v0.0.0 · preview</span>
+        </div>
+      </header>
+
+      <!-- ── Main ────────────────────────────────────────────────────────── -->
+      <main class="client-shell__main" data-region="main">
+        <div class="client-route-stub">
+          <span class="eyebrow">Preview surface</span>
+          <h1>Clawso shell snapshot</h1>
+          <p style="color: var(--ink-soft); max-width: 54ch;">
+            A frozen, data-free reproduction of the Clawso shell. Apply your skin
+            to see how it reads against the real anchors and class names. All copy
+            here is placeholder.
+          </p>
+        </div>
+
+        <section class="preview-section">
+          <!-- Tabs (reserved part) -->
+          <div class="client-tabs" role="tablist">
+            <button type="button" class="client-tab is-active" data-part="tab" role="tab" aria-selected="true">Overview</button>
+            <button type="button" class="client-tab" data-part="tab" role="tab" aria-selected="false">Details</button>
+            <button type="button" class="client-tab" data-part="tab" role="tab" aria-selected="false">Activity</button>
+          </div>
+
+          <!-- Card (reserved part) -->
+          <article class="client-card" data-part="card">
+            <h2 class="client-card__title">Card heading</h2>
+            <p class="client-card__body">
+              Cards lift content onto the overlay surface. This is illustrative
+              placeholder content for preview only.
+            </p>
+            <div class="preview-row">
+              <button type="button" class="client-button" data-part="button">Primary action</button>
+              <button type="button" class="client-button client-button--ghost" data-part="button">Secondary</button>
+            </div>
+          </article>
+
+          <!-- Panel (reserved part) -->
+          <div class="client-panel" data-part="panel">
+            <span class="client-panel__eyebrow">Panel</span>
+            <p class="client-panel__body">
+              Panels group related controls on a raised surface with an accent rail.
+              Placeholder text — no live data.
+            </p>
+            <label style="display:grid; gap:6px; font-size: var(--t-body-sm); color: var(--ink-soft);">
+              <span>Sample field</span>
+              <input class="client-input" data-part="input" type="text" placeholder="Type something…" />
+            </label>
+          </div>
+
+          <!-- Table (reserved part) -->
+          <table class="client-table" data-part="table">
+            <thead>
+              <tr><th>Item</th><th>Status</th><th>Updated</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Sample row one</td><td>Active</td><td>just now</td></tr>
+              <tr><td>Sample row two</td><td>Idle</td><td>2h ago</td></tr>
+              <tr><td>Sample row three</td><td>Done</td><td>yesterday</td></tr>
+            </tbody>
+          </table>
+
+          <!-- Modal (reserved part) — shown inline, not as a live overlay -->
+          <div class="client-modal-scrim" aria-hidden="true">
+            <div class="client-modal" data-part="modal" role="dialog" aria-label="Sample dialog">
+              <h2 class="client-modal__title">Sample dialog</h2>
+              <p class="client-modal__body">
+                A representative modal block. Skins target <code>[data-part="modal"]</code>;
+                the content is placeholder only.
+              </p>
+              <div class="client-modal__actions">
+                <button type="button" class="client-button client-button--ghost" data-part="button">Cancel</button>
+                <button type="button" class="client-button" data-part="button">Confirm</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

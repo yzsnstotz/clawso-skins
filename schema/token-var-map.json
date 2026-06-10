@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://clawso.ai/schema/skin/token-var-map.json",
+  "title": "SkinTokenVarMap",
+  "contract": "1.0",
+  "slotCount": 47,
+  "vars": {
+    "surface.base": [
+      "--paper",
+      "--surface"
+    ],
+    "surface.raised": [
+      "--paper-2"
+    ],
+    "surface.sunken": [
+      "--paper-3",
+      "--surface-muted"
+    ],
+    "surface.overlay": [
+      "--paper-card"
+    ],
+    "content.primary": [
+      "--ink"
+    ],
+    "content.secondary": [
+      "--ink-soft"
+    ],
+    "content.muted": [
+      "--ink-quiet"
+    ],
+    "content.faint": [
+      "--ink-faint"
+    ],
+    "content.on-accent": [
+      "--content-on-accent"
+    ],
+    "border.subtle": [
+      "--rule",
+      "--rule-soft"
+    ],
+    "border.strong": [
+      "--rule-strong"
+    ],
+    "border.focus": [
+      "--border-focus"
+    ],
+    "accent.base": [
+      "--ember"
+    ],
+    "accent.hover": [
+      "--ember-bright"
+    ],
+    "accent.contrast": [
+      "--ember-deep"
+    ],
+    "accent.surface": [
+      "--ember-tint"
+    ],
+    "semantic.success": [
+      "--leaf"
+    ],
+    "semantic.success-surface": [
+      "--semantic-success-surface"
+    ],
+    "semantic.danger": [
+      "--rust"
+    ],
+    "semantic.danger-surface": [
+      "--semantic-danger-surface"
+    ],
+    "semantic.warning": [
+      "--semantic-warning"
+    ],
+    "semantic.warning-surface": [
+      "--semantic-warning-surface"
+    ],
+    "semantic.info": [
+      "--info"
+    ],
+    "semantic.info-surface": [
+      "--semantic-info-surface"
+    ],
+    "font.display": [
+      "--serif"
+    ],
+    "font.sans": [
+      "--sans"
+    ],
+    "font.mono": [
+      "--mono",
+      "--font-mono"
+    ],
+    "font.cjk": [
+      "--font-cjk"
+    ],
+    "radius.xs": [
+      "--radius-xs"
+    ],
+    "radius.sm": [
+      "--radius-sm"
+    ],
+    "radius.md": [
+      "--radius"
+    ],
+    "radius.lg": [
+      "--radius-lg"
+    ],
+    "radius.xl": [
+      "--radius-xl"
+    ],
+    "radius.pill": [
+      "--radius-pill"
+    ],
+    "shadow.sm": [
+      "--shadow-sm"
+    ],
+    "shadow.md": [
+      "--shadow-md"
+    ],
+    "shadow.lg": [
+      "--shadow-lg"
+    ],
+    "shadow.xl": [
+      "--shadow-xl"
+    ],
+    "motion.ease": [
+      "--ease"
+    ],
+    "motion.ease-out": [
+      "--ease-out"
+    ],
+    "motion.spring": [
+      "--ease-spring"
+    ],
+    "motion.duration-fast": [
+      "--t-fast"
+    ],
+    "motion.duration-base": [
+      "--t-base"
+    ],
+    "motion.duration-slow": [
+      "--t-slow"
+    ],
+    "motion.duration-hover": [
+      "--duration-hover"
+    ],
+    "motion.duration-modal-enter": [
+      "--duration-modal-enter"
+    ],
+    "motion.duration-page": [
+      "--duration-page"
+    ]
+  }
+}

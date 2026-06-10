@@ -5,6 +5,7 @@ These files are the **machine-readable** form of the [skin contract](../spec/ski
 - `manifest.schema.json` — JSON Schema for a skin's `skin.json`
 - `tokens.schema.json` — the semantic token slot list (names + value types)
 - `anchors.json` — the versioned, append-only `data-region` / `data-part` registry
+- `token-var-map.json` — each semantic token slot → the backing CSS custom-property name(s) it writes (the inverse of the client's legacy var→slot table, plus a forward-derived `--var` for gap slots). Lets the SDK/preview project a skin's slot values into CSS var overrides without importing monorepo source.
 
 They are **generated** from the Clawso monorepo (`packages/skin-contract`) by `pnpm export-skin-contract` and published here on every contract release. The client runtime, the marketplace publish gate, and `@clawso/skin-kit` all derive validation from this same source, so they cannot drift.
 
