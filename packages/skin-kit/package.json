@@ -1,0 +1,30 @@
+{
+  "name": "@clawso/skin-kit",
+  "version": "0.1.0",
+  "description": "CLI for authoring, validating, bundling, and previewing Clawso skins.",
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": {
+    "clawso-skin": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "ajv": "^8.17.1"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.7",
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.0"
+  }
+}
