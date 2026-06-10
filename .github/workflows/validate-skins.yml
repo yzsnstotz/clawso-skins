@@ -1,0 +1,29 @@
+name: validate-skins
+
+# Validates every example skin against the generated contract schema + security rules.
+# Keeps the public examples honest: a contract change that breaks them fails here.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+        working-directory: packages/skin-kit
+      - run: npm run build
+        working-directory: packages/skin-kit
+      - name: validate examples
+        run: |
+          for dir in examples/*/; do
+            [ -f "$dir/skin.json" ] || continue
+            echo "validating $dir"
+            node packages/skin-kit/dist/cli.js validate "$dir"
+          done
