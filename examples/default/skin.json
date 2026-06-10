@@ -1,0 +1,12 @@
+{
+  "contract": "1.0",
+  "id": "default",
+  "name": "Clawso Default",
+  "version": "1.0.0",
+  "author": "Clawso",
+  "modes": {
+    "default": "dark",
+    "dark": { "tokens": "tokens.json" },
+    "light": { "tokens": "tokens.light.json" }
+  }
+}

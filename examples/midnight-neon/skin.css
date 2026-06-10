@@ -1,0 +1,115 @@
+/* =========================================================================
+   Midnight Neon — scoped appearance CSS (T2)
+   The client applies this scoped to [data-skin="midnight-neon"]. Every rule
+   below targets a PUBLISHED ANCHOR only (data-region / data-part), never an
+   internal class name. No url(), no @import, no JS — token-driven glow,
+   glass, and an accent underline animation.
+   ========================================================================= */
+
+/* ---- Glass panels & cards: blur the deep background through them, with a
+   faint neon hairline and a soft outer glow. -------------------------------- */
+[data-part="card"],
+[data-part="panel"] {
+  background: color-mix(in srgb, var(--paper-card) 78%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--rule);
+  box-shadow:
+    0 0 0 1px rgba(34, 236, 255, 0.06),
+    0 12px 40px rgba(0, 0, 0, 0.55),
+    0 0 28px rgba(34, 236, 255, 0.10);
+  transition: box-shadow var(--t-base) var(--ease),
+              border-color var(--t-base) var(--ease);
+}
+
+[data-part="card"]:hover {
+  border-color: var(--rule-strong);
+  box-shadow:
+    0 0 0 1px rgba(34, 236, 255, 0.14),
+    0 16px 56px rgba(0, 0, 0, 0.60),
+    0 0 44px rgba(34, 236, 255, 0.22);
+}
+
+/* ---- Sidebar: a recessed glass rail with a neon edge. -------------------- */
+[data-region="sidebar"] {
+  background: color-mix(in srgb, var(--paper-2) 70%, transparent);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-right: 1px solid rgba(34, 236, 255, 0.12);
+  box-shadow: inset -1px 0 24px rgba(34, 236, 255, 0.06);
+}
+
+/* ---- Primary buttons: neon fill that glows brighter on hover. ----------- */
+[data-part="button"] {
+  text-shadow: 0 0 8px rgba(34, 236, 255, 0.45);
+  box-shadow:
+    0 0 0 1px rgba(34, 236, 255, 0.30),
+    0 0 16px rgba(34, 236, 255, 0.25);
+  transition: box-shadow var(--duration-hover, 120ms) var(--ease),
+              transform var(--duration-hover, 120ms) var(--ease);
+}
+
+[data-part="button"]:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(34, 236, 255, 0.55),
+    0 0 28px rgba(34, 236, 255, 0.45);
+}
+
+[data-part="button"]:active {
+  transform: translateY(0);
+}
+
+/* ---- Inputs: focus paints a soft cyan glow ring. ------------------------ */
+[data-part="input"]:focus,
+[data-part="input"]:focus-within {
+  border-color: var(--ember);
+  box-shadow: 0 0 0 3px rgba(34, 236, 255, 0.22),
+              0 0 18px rgba(34, 236, 255, 0.18);
+}
+
+/* ---- Nav items: an animated neon underline that wipes in on hover and on
+   the active item. Uses transform (not opacity) so it never trips the
+   hide-protected-anchor scanner. ------------------------------------------ */
+[data-part="nav-item"] {
+  position: relative;
+  text-shadow: 0 0 6px rgba(34, 236, 255, 0.0);
+  transition: color var(--duration-hover, 120ms) var(--ease),
+              text-shadow var(--duration-hover, 120ms) var(--ease);
+}
+
+[data-part="nav-item"]::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 6px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--ember), var(--ember-bright));
+  box-shadow: 0 0 10px rgba(34, 236, 255, 0.6);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--t-base) var(--ease);
+}
+
+[data-part="nav-item"]:hover {
+  color: var(--ember);
+  text-shadow: 0 0 8px rgba(34, 236, 255, 0.5);
+}
+
+[data-part="nav-item"]:hover::after,
+[data-part="nav-item"][aria-current]::after,
+[data-part="nav-item"].is-active::after {
+  transform: scaleX(1);
+  animation: midnight-neon-underline 1.8s var(--ease) infinite;
+}
+
+@keyframes midnight-neon-underline {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(34, 236, 255, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(34, 236, 255, 0.95);
+  }
+}

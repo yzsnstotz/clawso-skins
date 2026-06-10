@@ -1,0 +1,17 @@
+{
+  "contract": "1.0",
+  "id": "midnight-neon",
+  "name": "Midnight Neon",
+  "version": "1.0.0",
+  "author": "Clawso",
+  "minClient": "1.2.0",
+  "requires": {
+    "regions": ["sidebar", "topbar", "main"],
+    "parts": ["nav-item", "button", "card", "panel", "input"]
+  },
+  "modes": {
+    "default": "dark",
+    "dark": { "tokens": "tokens.json" }
+  },
+  "styles": "skin.css"
+}

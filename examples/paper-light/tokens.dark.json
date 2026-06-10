@@ -1,0 +1,57 @@
+{
+  "surface.base": "#1c1813",
+  "surface.raised": "#241f18",
+  "surface.sunken": "#2d271e",
+  "surface.overlay": "#15110c",
+
+  "content.primary": "#f3ead8",
+  "content.secondary": "#cabfa8",
+  "content.muted": "#9a8f78",
+  "content.faint": "#6a6151",
+  "content.on-accent": "#1c1813",
+
+  "border.subtle": "rgba(243,234,216,0.10)",
+  "border.strong": "rgba(243,234,216,0.20)",
+  "border.focus": "#e07a38",
+
+  "accent.base": "#e07a38",
+  "accent.hover": "#f5934f",
+  "accent.contrast": "#b05a1f",
+  "accent.surface": "rgba(224,122,56,0.16)",
+
+  "semantic.success": "#86a86a",
+  "semantic.success-surface": "rgba(134,168,106,0.16)",
+  "semantic.danger": "#d27452",
+  "semantic.danger-surface": "rgba(210,116,82,0.16)",
+  "semantic.warning": "#d6a24d",
+  "semantic.warning-surface": "rgba(214,162,77,0.16)",
+  "semantic.info": "#7ba3c6",
+  "semantic.info-surface": "rgba(123,163,198,0.16)",
+
+  "font.display": "\"Fraunces\", \"Times New Roman\", serif",
+  "font.sans": "\"Geist\", -apple-system, BlinkMacSystemFont, \"SF Pro Text\", system-ui, sans-serif",
+  "font.mono": "\"Geist Mono\", ui-monospace, \"JetBrains Mono\", monospace",
+  "font.cjk": "\"Noto Sans SC\", \"PingFang SC\", \"Hiragino Sans GB\", \"Microsoft YaHei\", sans-serif",
+
+  "radius.xs": "2px",
+  "radius.sm": "5px",
+  "radius.md": "8px",
+  "radius.lg": "12px",
+  "radius.xl": "18px",
+  "radius.pill": "999px",
+
+  "shadow.sm": "0 1px 2px rgba(0,0,0,0.40)",
+  "shadow.md": "0 4px 14px rgba(0,0,0,0.45)",
+  "shadow.lg": "0 12px 34px rgba(0,0,0,0.50)",
+  "shadow.xl": "0 24px 64px rgba(0,0,0,0.55)",
+
+  "motion.ease": "cubic-bezier(0.2, 0.7, 0.1, 1)",
+  "motion.ease-out": "cubic-bezier(0, 0, 0.2, 1)",
+  "motion.spring": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+  "motion.duration-fast": "160ms",
+  "motion.duration-base": "240ms",
+  "motion.duration-slow": "420ms",
+  "motion.duration-hover": "150ms",
+  "motion.duration-modal-enter": "220ms",
+  "motion.duration-page": "320ms"
+}

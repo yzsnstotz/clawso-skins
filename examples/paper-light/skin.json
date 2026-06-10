@@ -1,0 +1,15 @@
+{
+  "contract": "1.0",
+  "id": "paper-light",
+  "name": "Paper Light",
+  "version": "1.0.0",
+  "author": "Clawso",
+  "modes": {
+    "default": "light",
+    "light": { "tokens": "tokens.json" },
+    "dark": { "tokens": "tokens.dark.json" }
+  },
+  "layout": {
+    "sidebar": "right"
+  }
+}
