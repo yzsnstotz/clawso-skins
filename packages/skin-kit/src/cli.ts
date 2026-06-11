@@ -5,6 +5,8 @@
  * Commands:
  *   validate <dir>           schema + security validation; exit 0 only if all pass
  *   build    <dir>           validate, then zip into <id>.skin
+ *   publish  <dir>           validate + build .skin tar.gz + submit to marketplace
+ *                            [--token t] [--api url] [--dry-run] [--notes text]
  *   preview  <dir> [--mode m] [--emit file.html] [--port n]
  *                            serve (or emit) the shell snapshot with the skin applied
  *   init     <name>          scaffold a new skin from examples/default
@@ -17,8 +19,11 @@ import * as http from "node:http";
 import * as path from "node:path";
 import { validateSkin } from "./validate";
 import { buildSkin } from "./build";
+import { publishSkin } from "./publish";
 import { applySkin } from "./preview";
 import { examplesDir } from "./artifacts";
+
+const DEFAULT_API_BASE = "https://app.clawso.ai";
 
 function fail(msg: string): never {
   process.stderr.write(`error: ${msg}\n`);
@@ -90,6 +95,86 @@ function cmdBuild(args: string[]): void {
   const outDir = typeof flags.out === "string" ? flags.out : undefined;
   const bundle = buildSkin(dir, id, outDir);
   process.stdout.write(`Built ${bundle}\n`);
+  process.exit(0);
+}
+
+async function cmdPublish(args: string[]): Promise<void> {
+  const { positional, flags } = parseFlags(args);
+  const dir = positional[0];
+  if (!dir)
+    fail(
+      "usage: clawso-skin publish <dir> [--token t] [--api url] [--dry-run] [--notes text]"
+    );
+  if (!fs.existsSync(dir)) fail(`directory not found: ${dir}`);
+
+  const apiBase =
+    (typeof flags.api === "string" && flags.api) ||
+    process.env.CLAWSO_API_BASE_URL ||
+    DEFAULT_API_BASE;
+  const token =
+    (typeof flags.token === "string" && flags.token) ||
+    process.env.CLAWSO_DEV_TOKEN ||
+    undefined;
+  const dryRun = flags["dry-run"] === true || flags.dryRun === true;
+  const notes = typeof flags.notes === "string" ? flags.notes : undefined;
+
+  // A real run needs a token up front — fail clearly before building anything.
+  if (!dryRun && !token) {
+    fail(
+      "no publisher token: pass --token <t> or set CLAWSO_DEV_TOKEN (a dealer/publisher dev token).\n" +
+        "       (use --dry-run to verify the bundle + multipart plan offline without a token)"
+    );
+  }
+
+  let result;
+  try {
+    result = await publishSkin(dir, { apiBase, token, dryRun }, notes);
+  } catch (e) {
+    fail((e as Error).message);
+  }
+
+  const { plan } = result;
+  if (dryRun) {
+    process.stdout.write(`Publish dry-run for ${plan.skin.name ?? plan.skin.id}\n`);
+    process.stdout.write(`  skin:      ${plan.skin.id}@${plan.skin.version}\n`);
+    process.stdout.write(`  apiBase:   ${plan.apiBase}\n`);
+    process.stdout.write(`  endpoint:  ${plan.endpoint}\n`);
+    process.stdout.write(`  POST multipart/form-data parts:\n`);
+    process.stdout.write(
+      `    bundle                  ${plan.bundle.filename}  ${plan.bundle.bytes} bytes\n`
+    );
+    process.stdout.write(`                            sha256=${plan.bundle.sha256}\n`);
+    process.stdout.write(
+      `    admin_review_checklist  ${plan.adminReviewChecklist.filename}  ` +
+        `${plan.adminReviewChecklist.bytes} bytes (${plan.adminReviewChecklist.source})\n`
+    );
+    process.stdout.write(
+      `    deployment_verification ${plan.deploymentVerification.filename}  ` +
+        `${plan.deploymentVerification.bytes} bytes (${plan.deploymentVerification.source})\n`
+    );
+    process.stdout.write(
+      `    release_notes           ${
+        plan.releaseNotes.present ? `${plan.releaseNotes.bytes} bytes` : "(none)"
+      }\n`
+    );
+    process.stdout.write("No network call made (--dry-run).\n");
+    process.exit(0);
+  }
+
+  const r = result.response ?? {};
+  process.stdout.write(`Submitted ${plan.skin.id}@${plan.skin.version} to ${plan.apiBase}\n`);
+  process.stdout.write(`  slug:      ${r.slug ?? plan.skin.id}\n`);
+  process.stdout.write(`  version:   ${r.version ?? plan.skin.version}\n`);
+  process.stdout.write(`  state:     ${r.state ?? "(unknown)"}\n`);
+  if (r.review_url) process.stdout.write(`  review:    ${r.review_url}\n`);
+  if (r.estimated_review_time)
+    process.stdout.write(`  est. time: ${r.estimated_review_time}\n`);
+  if (r.bundle_sha256) process.stdout.write(`  sha256:    ${r.bundle_sha256}\n`);
+  if (Array.isArray(r.warnings) && r.warnings.length) {
+    process.stdout.write(`  warnings:\n`);
+    for (const w of r.warnings) process.stdout.write(`    - ${w}\n`);
+  }
+  process.stdout.write(`\nFull response:\n${JSON.stringify(r, null, 2)}\n`);
   process.exit(0);
 }
 
@@ -231,21 +316,28 @@ function usage(): void {
       "Commands:",
       "  validate <dir>                         schema + security checks",
       "  build    <dir> [--out dir]             validate, then zip <id>.skin",
+      "  publish  <dir> [--token t] [--api u]   validate + build .skin tar.gz +",
+      "                 [--dry-run] [--notes t]  submit to the marketplace",
       "  preview  <dir> [--mode m] [--emit f]   serve/emit shell snapshot + skin",
       "                 [--port n]",
       "  init     <name>                        scaffold a new skin",
+      "",
+      "Env: CLAWSO_API_BASE_URL (publish target; default https://app.clawso.ai)",
+      "     CLAWSO_DEV_TOKEN     (publisher bearer token for publish)",
       "",
     ].join("\n")
   );
 }
 
-function main(): void {
+async function main(): Promise<void> {
   const [, , cmd, ...rest] = process.argv;
   switch (cmd) {
     case "validate":
       return cmdValidate(rest);
     case "build":
       return cmdBuild(rest);
+    case "publish":
+      return cmdPublish(rest);
     case "preview":
       return cmdPreview(rest);
     case "init":
@@ -262,4 +354,7 @@ function main(): void {
   }
 }
 
-main();
+main().catch((e) => {
+  process.stderr.write(`error: ${(e as Error).message}\n`);
+  process.exit(2);
+});
