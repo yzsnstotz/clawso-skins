@@ -96,6 +96,27 @@
         "styles": {
           "type": "string"
         },
+        "background": {
+          "type": "object",
+          "properties": {
+            "video": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string"
+            },
+            "dim": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "blur": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "additionalProperties": false
+        },
         "layout": {
           "type": "object",
           "properties": {

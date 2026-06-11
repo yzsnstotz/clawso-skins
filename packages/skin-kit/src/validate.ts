@@ -199,6 +199,31 @@ export function validateSkin(dir: string): ValidateResult {
         ),
   });
 
+  // ---- Rule: background media must be bundled (no external video/image) ----
+  const bg = manifest.background;
+  if (bg && (typeof bg.video === "string" || typeof bg.image === "string")) {
+    const offenders: string[] = [];
+    for (const key of ["video", "image"] as const) {
+      const ref = bg[key];
+      if (typeof ref === "string" && isOffBundleUrl(ref)) {
+        offenders.push(`background.${key}: ${ref}`);
+      }
+    }
+    results.push({
+      rule: "security:bundled-background",
+      pass: offenders.length === 0,
+      detail: offenders.map(
+        (o) => `off-bundle background media (must be bundled in the skin): ${o}`
+      ),
+    });
+  } else {
+    results.push({
+      rule: "security:bundled-background",
+      pass: true,
+      detail: ["no background media"],
+    });
+  }
+
   // ---- Load skin.css if referenced or present ----
   const cssRel: string | undefined =
     typeof manifest.styles === "string" ? manifest.styles : undefined;
