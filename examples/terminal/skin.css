@@ -1,0 +1,35 @@
+/* Terminal — T2 appearance: CRT scanlines, phosphor glow, uppercase chrome.
+   All effects scoped to [data-skin="terminal"] and the published anchors.
+   No external urls, no scripts. */
+
+[data-skin="terminal"] [data-region="app-shell"] {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(57, 255, 20, 0.05) 0,
+    rgba(57, 255, 20, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+[data-skin="terminal"] [data-region="main"],
+[data-skin="terminal"] [data-region="sidebar"] {
+  text-shadow: 0 0 6px rgba(57, 255, 20, 0.35);
+}
+
+[data-skin="terminal"] [data-part="nav-item"],
+[data-skin="terminal"] [data-part="button"] {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+[data-skin="terminal"] [data-part="card"],
+[data-skin="terminal"] [data-part="panel"] {
+  border: 1px solid rgba(57, 255, 20, 0.4);
+  box-shadow: inset 0 0 24px rgba(57, 255, 20, 0.06);
+}
+
+[data-skin="terminal"] [data-part="nav-item"]::before {
+  content: "> ";
+  opacity: 0.6;
+}

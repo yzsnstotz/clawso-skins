@@ -1,0 +1,42 @@
+/* Synthwave — T2 appearance: gradient backdrop, neon glow, glassmorphism.
+   Scoped to [data-skin="synthwave"] + published anchors. No external urls/scripts. */
+
+[data-skin="synthwave"] [data-region="app-shell"] {
+  background-image:
+    radial-gradient(120% 80% at 100% 0%, rgba(255, 46, 151, 0.22), transparent 60%),
+    radial-gradient(120% 80% at 0% 100%, rgba(106, 215, 255, 0.18), transparent 55%),
+    linear-gradient(160deg, #1a0b2e 0%, #2a0f48 100%);
+}
+
+[data-skin="synthwave"] [data-region="sidebar"] {
+  background: linear-gradient(180deg, rgba(45, 18, 80, 0.85), rgba(18, 7, 31, 0.85));
+  backdrop-filter: blur(10px);
+}
+
+[data-skin="synthwave"] [data-part="card"],
+[data-skin="synthwave"] [data-part="panel"] {
+  background: rgba(45, 18, 80, 0.5) !important;
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 110, 196, 0.32);
+  box-shadow:
+    0 14px 44px rgba(124, 58, 237, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+[data-skin="synthwave"] [data-part="button"] {
+  box-shadow: 0 0 18px rgba(255, 46, 151, 0.45);
+  transition:
+    transform 160ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 160ms ease;
+}
+[data-skin="synthwave"] [data-part="button"]:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 0 28px rgba(255, 46, 151, 0.65);
+}
+
+[data-skin="synthwave"] [data-part="nav-item"] {
+  transition: letter-spacing 200ms ease;
+}
+[data-skin="synthwave"] [data-part="nav-item"]:hover {
+  letter-spacing: 0.04em;
+}

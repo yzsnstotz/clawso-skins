@@ -1,0 +1,20 @@
+{
+  "contract": "1.0",
+  "id": "synthwave",
+  "name": "Synthwave",
+  "version": "1.0.0",
+  "author": "Clawso",
+  "requires": {
+    "regions": ["app-shell", "sidebar", "topbar", "main"],
+    "parts": ["nav-item", "button", "card", "panel"]
+  },
+  "modes": {
+    "default": "dark",
+    "dark": { "tokens": "tokens.json" }
+  },
+  "styles": "skin.css",
+  "layout": {
+    "sidebar": "right",
+    "nav": { "order": ["/chat", "/discover"] }
+  }
+}
