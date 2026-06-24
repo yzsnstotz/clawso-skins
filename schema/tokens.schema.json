@@ -12,9 +12,11 @@
     "font",
     "radius",
     "shadow",
-    "motion"
+    "motion",
+    "chat",
+    "tool"
   ],
-  "slotCount": 47,
+  "slotCount": 68,
   "slots": [
     {
       "slot": "surface.base",
@@ -344,6 +346,153 @@
       "valueType": "duration",
       "modeSensitive": false,
       "description": "Page-transition duration (CONTRACT GAP: referenced, no fallback today)."
+    },
+    {
+      "slot": "chat.bubble.user",
+      "category": "chat",
+      "valueType": "color",
+      "modeSensitive": false,
+      "description": "User message accent (role-label/bubble). Defaults to the global accent (--ember)."
+    },
+    {
+      "slot": "chat.bubble.assistant",
+      "category": "chat",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Assistant message bubble background. Defaults to transparent (inherits the thread surface today)."
+    },
+    {
+      "slot": "chat.bubble.system",
+      "category": "chat",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "System message bubble background. Defaults to transparent (folded/inline today)."
+    },
+    {
+      "slot": "chat.tool-call.bg",
+      "category": "chat",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Tool-call / debug-lane block background. Defaults to the raised surface (--paper-2)."
+    },
+    {
+      "slot": "chat.composer.bg",
+      "category": "chat",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Composer (input dock) background. Defaults to the overlay surface (--paper-card)."
+    },
+    {
+      "slot": "chat.session-list.bg",
+      "category": "chat",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Session-rail background. Defaults to the raised surface (--paper-2)."
+    },
+    {
+      "slot": "chat.session-item.active",
+      "category": "chat",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Active session-item background. Defaults to the sunken surface (--paper-3)."
+    },
+    {
+      "slot": "chat.stream.gap",
+      "category": "chat",
+      "valueType": "length",
+      "modeSensitive": false,
+      "description": "Vertical gap between transcript messages. Defaults to today's 0 (messages use intrinsic padding)."
+    },
+    {
+      "slot": "chat.role-label",
+      "category": "chat",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Per-message role-label gutter color. Defaults to muted text (--ink-quiet)."
+    },
+    {
+      "slot": "tool.status.bg",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar status pill/meta background. Defaults to transparent."
+    },
+    {
+      "slot": "tool.status.border",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar status pill/meta border. Defaults to transparent."
+    },
+    {
+      "slot": "tool.status.text",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar status value text. Defaults to the ink-bar foreground."
+    },
+    {
+      "slot": "tool.status.muted",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar status labels such as version/port captions. Defaults to muted ink-bar text."
+    },
+    {
+      "slot": "tool.status.success",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar positive/installed status color. Defaults to the success semantic token."
+    },
+    {
+      "slot": "tool.provider-binding.bg",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar provider-binding summary outer background. Defaults to transparent."
+    },
+    {
+      "slot": "tool.provider-binding.row-bg",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar provider-binding row background. Defaults to the current subtle ink-bar row fill."
+    },
+    {
+      "slot": "tool.provider-binding.row-hover-bg",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar provider-binding row hover background. Defaults to the current subtle hover fill."
+    },
+    {
+      "slot": "tool.provider-binding.border",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar provider-binding outer/row border. Defaults to the current ink-bar border fallback."
+    },
+    {
+      "slot": "tool.provider-binding.text",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar provider-binding primary text. Defaults to the ink-bar foreground."
+    },
+    {
+      "slot": "tool.provider-binding.muted",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar provider-binding cap/source text. Defaults to faint ink-bar text."
+    },
+    {
+      "slot": "tool.provider-binding.required",
+      "category": "tool",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Bundled tool ink-bar provider-binding required warning text. Defaults to the danger semantic token."
     }
   ]
 }

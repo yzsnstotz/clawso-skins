@@ -3,7 +3,7 @@
   "$id": "https://clawso.ai/schema/skin/token-var-map.json",
   "title": "SkinTokenVarMap",
   "contract": "1.0",
-  "slotCount": 47,
+  "slotCount": 68,
   "vars": {
     "surface.base": [
       "--paper",
@@ -149,6 +149,69 @@
     ],
     "motion.duration-page": [
       "--duration-page"
+    ],
+    "chat.bubble.user": [
+      "--chat-bubble-user"
+    ],
+    "chat.bubble.assistant": [
+      "--chat-bubble-assistant"
+    ],
+    "chat.bubble.system": [
+      "--chat-bubble-system"
+    ],
+    "chat.tool-call.bg": [
+      "--chat-tool-call-bg"
+    ],
+    "chat.composer.bg": [
+      "--chat-composer-bg"
+    ],
+    "chat.session-list.bg": [
+      "--chat-session-list-bg"
+    ],
+    "chat.session-item.active": [
+      "--chat-session-item-active"
+    ],
+    "chat.stream.gap": [
+      "--chat-stream-gap"
+    ],
+    "chat.role-label": [
+      "--chat-role-label"
+    ],
+    "tool.status.bg": [
+      "--tool-status-bg"
+    ],
+    "tool.status.border": [
+      "--tool-status-border"
+    ],
+    "tool.status.text": [
+      "--tool-status-text"
+    ],
+    "tool.status.muted": [
+      "--tool-status-muted"
+    ],
+    "tool.status.success": [
+      "--tool-status-success"
+    ],
+    "tool.provider-binding.bg": [
+      "--tool-provider-binding-bg"
+    ],
+    "tool.provider-binding.row-bg": [
+      "--tool-provider-binding-row-bg"
+    ],
+    "tool.provider-binding.row-hover-bg": [
+      "--tool-provider-binding-row-hover-bg"
+    ],
+    "tool.provider-binding.border": [
+      "--tool-provider-binding-border"
+    ],
+    "tool.provider-binding.text": [
+      "--tool-provider-binding-text"
+    ],
+    "tool.provider-binding.muted": [
+      "--tool-provider-binding-muted"
+    ],
+    "tool.provider-binding.required": [
+      "--tool-provider-binding-required"
     ]
   }
 }

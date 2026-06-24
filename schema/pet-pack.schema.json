@@ -1,0 +1,878 @@
+{
+  "$ref": "#/definitions/PetPackManifest",
+  "definitions": {
+    "PetPackManifest": {
+      "type": "object",
+      "properties": {
+        "contract": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "author": {
+          "type": "string"
+        },
+        "minClient": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "const": "pet-pack"
+        },
+        "minPetPack": {
+          "type": "string",
+          "default": "1.0"
+        },
+        "pet": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "format": {
+                  "type": "string",
+                  "const": "vectorPet"
+                },
+                "version": {
+                  "type": "string",
+                  "default": "1.0"
+                },
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]+$"
+                },
+                "viewBox": {
+                  "type": "string",
+                  "default": "0 0 64 64"
+                },
+                "palette": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "default": {}
+                },
+                "layers": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$"
+                      },
+                      "className": {
+                        "type": "string"
+                      },
+                      "nodes": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "tag": {
+                              "type": "string",
+                              "enum": [
+                                "circle",
+                                "defs",
+                                "ellipse",
+                                "filter",
+                                "g",
+                                "line",
+                                "linearGradient",
+                                "path",
+                                "radialGradient",
+                                "rect",
+                                "stop"
+                              ]
+                            },
+                            "attrs": {
+                              "type": "object",
+                              "additionalProperties": {
+                                "type": [
+                                  "string",
+                                  "number"
+                                ]
+                              },
+                              "default": {}
+                            },
+                            "children": {
+                              "type": "array",
+                              "items": {
+                                "$ref": "#/definitions/PetPackManifest/properties/pet/anyOf/0/properties/layers/items/properties/nodes/items"
+                              },
+                              "maxItems": 64
+                            }
+                          },
+                          "required": [
+                            "tag"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 1,
+                        "maxItems": 96
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "nodes"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 16
+                },
+                "states": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "layerTransforms": {
+                        "type": "object",
+                        "additionalProperties": {
+                          "type": "object",
+                          "properties": {
+                            "translateX": {
+                              "type": "number",
+                              "minimum": -64,
+                              "maximum": 64
+                            },
+                            "translateY": {
+                              "type": "number",
+                              "minimum": -64,
+                              "maximum": 64
+                            },
+                            "scaleX": {
+                              "type": "number",
+                              "minimum": 0.2,
+                              "maximum": 3
+                            },
+                            "scaleY": {
+                              "type": "number",
+                              "minimum": 0.2,
+                              "maximum": 3
+                            },
+                            "rotateDeg": {
+                              "type": "number",
+                              "minimum": -360,
+                              "maximum": 360
+                            },
+                            "opacity": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1
+                            }
+                          },
+                          "additionalProperties": false
+                        },
+                        "default": {}
+                      },
+                      "nodes": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/definitions/PetPackManifest/properties/pet/anyOf/0/properties/layers/items/properties/nodes/items"
+                        },
+                        "maxItems": 64
+                      },
+                      "expression": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  "propertyNames": {
+                    "enum": [
+                      "idle",
+                      "thinking",
+                      "talking",
+                      "celebrate",
+                      "wince"
+                    ]
+                  }
+                },
+                "anchors": {
+                  "type": "object",
+                  "properties": {
+                    "headCenterX": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 64
+                    },
+                    "headTopY": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 64
+                    },
+                    "sparkleX": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 64
+                    },
+                    "sparkleY": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 64
+                    },
+                    "sweatX": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 64
+                    },
+                    "sweatY": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 64
+                    },
+                    "blushLeftX": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 64
+                    },
+                    "blushRightX": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 64
+                    },
+                    "blushY": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 64
+                    }
+                  },
+                  "required": [
+                    "headCenterX",
+                    "headTopY",
+                    "sparkleX",
+                    "sparkleY",
+                    "sweatX",
+                    "sweatY",
+                    "blushLeftX",
+                    "blushRightX",
+                    "blushY"
+                  ],
+                  "additionalProperties": false
+                },
+                "actions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "breathe",
+                          "bob",
+                          "tilt",
+                          "squash",
+                          "bounce",
+                          "blink",
+                          "pulse",
+                          "shake",
+                          "float",
+                          "perk",
+                          "think",
+                          "stream",
+                          "review",
+                          "wince",
+                          "wave"
+                        ]
+                      },
+                      "targetLayer": {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$"
+                      },
+                      "durationMs": {
+                        "type": "integer",
+                        "minimum": 80,
+                        "maximum": 20000
+                      },
+                      "loop": {
+                        "type": "boolean"
+                      },
+                      "intensity": {
+                        "type": "number",
+                        "minimum": -4,
+                        "maximum": 4
+                      },
+                      "axis": {
+                        "type": "string",
+                        "enum": [
+                          "x",
+                          "y",
+                          "both"
+                        ]
+                      },
+                      "easing": {
+                        "type": "string",
+                        "enum": [
+                          "linear",
+                          "ease",
+                          "ease-in",
+                          "ease-out",
+                          "ease-in-out"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "kind"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "maxItems": 64,
+                  "default": []
+                },
+                "triggerSlots": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "action": {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z][a-zA-Z0-9_-]*$"
+                      },
+                      "row": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "frames": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 60
+                      },
+                      "loop": {
+                        "type": "boolean"
+                      },
+                      "durationMs": {
+                        "type": "integer",
+                        "minimum": 80,
+                        "maximum": 20000
+                      }
+                    },
+                    "required": [
+                      "action"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "propertyNames": {
+                    "enum": [
+                      "idle",
+                      "working",
+                      "success",
+                      "failure",
+                      "waiting_user",
+                      "hover",
+                      "greet",
+                      "move_left",
+                      "move_right",
+                      "responding",
+                      "attention",
+                      "summon",
+                      "dismiss",
+                      "sleep",
+                      "impatient",
+                      "approval_needed",
+                      "tool_running",
+                      "tool_success",
+                      "tool_failure",
+                      "cancelled",
+                      "retrying",
+                      "offline",
+                      "drag_start",
+                      "drag_end",
+                      "idle_variant",
+                      "instruction_received",
+                      "agent_planning",
+                      "agent_coding",
+                      "agent_testing",
+                      "agent_fixing",
+                      "agent_reviewing",
+                      "agent_blocked",
+                      "agent_done",
+                      "automation_queued",
+                      "automation_running",
+                      "automation_waiting",
+                      "automation_success",
+                      "automation_failure",
+                      "tool_pending",
+                      "tool_streaming",
+                      "tool_retrying",
+                      "tool_waiting_input",
+                      "tool_done",
+                      "tool_error",
+                      "auth_required",
+                      "handoff_ready",
+                      "panel_unread",
+                      "panel_processing",
+                      "panel_jump"
+                    ]
+                  }
+                },
+                "persona": {
+                  "type": "object",
+                  "properties": {
+                    "version": {
+                      "type": "string",
+                      "maxLength": 32
+                    },
+                    "locale": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 24
+                    },
+                    "tone": {
+                      "type": "string",
+                      "enum": [
+                        "calm",
+                        "playful",
+                        "witty",
+                        "supportive",
+                        "focused",
+                        "dramatic"
+                      ]
+                    },
+                    "style": {
+                      "type": "string",
+                      "maxLength": 120
+                    },
+                    "personality": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 48
+                      },
+                      "maxItems": 8
+                    },
+                    "maxBubbleChars": {
+                      "type": "integer",
+                      "minimum": 24,
+                      "maximum": 180
+                    },
+                    "fallback": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 180
+                        },
+                        "locale": {
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 24
+                        }
+                      },
+                      "required": [
+                        "text"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "phrases": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "slot": {
+                            "type": "string",
+                            "enum": [
+                              "idle",
+                              "working",
+                              "success",
+                              "failure",
+                              "waiting_user",
+                              "hover",
+                              "greet",
+                              "move_left",
+                              "move_right",
+                              "responding",
+                              "attention",
+                              "summon",
+                              "dismiss",
+                              "sleep",
+                              "impatient",
+                              "approval_needed",
+                              "tool_running",
+                              "tool_success",
+                              "tool_failure",
+                              "cancelled",
+                              "retrying",
+                              "offline",
+                              "drag_start",
+                              "drag_end",
+                              "idle_variant",
+                              "instruction_received",
+                              "agent_planning",
+                              "agent_coding",
+                              "agent_testing",
+                              "agent_fixing",
+                              "agent_reviewing",
+                              "agent_blocked",
+                              "agent_done",
+                              "automation_queued",
+                              "automation_running",
+                              "automation_waiting",
+                              "automation_success",
+                              "automation_failure",
+                              "tool_pending",
+                              "tool_streaming",
+                              "tool_retrying",
+                              "tool_waiting_input",
+                              "tool_done",
+                              "tool_error",
+                              "auth_required",
+                              "handoff_ready",
+                              "panel_unread",
+                              "panel_processing",
+                              "panel_jump"
+                            ]
+                          },
+                          "text": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 180
+                          },
+                          "locale": {
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 24
+                          },
+                          "context": {
+                            "type": "string",
+                            "enum": [
+                              "default",
+                              "agent",
+                              "tool",
+                              "automation",
+                              "panel",
+                              "auth",
+                              "success",
+                              "failure",
+                              "waiting"
+                            ]
+                          },
+                          "weight": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100
+                          }
+                        },
+                        "required": [
+                          "slot",
+                          "text"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 48
+                    }
+                  },
+                  "required": [
+                    "phrases"
+                  ],
+                  "additionalProperties": false
+                },
+                "reactiveFx": {
+                  "type": "object",
+                  "properties": {
+                    "version": {
+                      "type": "string",
+                      "maxLength": 32
+                    },
+                    "bindings": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "on": {
+                            "type": "string",
+                            "enum": [
+                              "idle",
+                              "thinking",
+                              "talking",
+                              "celebrate",
+                              "wince"
+                            ]
+                          },
+                          "slot": {
+                            "$ref": "#/definitions/PetPackManifest/properties/pet/anyOf/0/properties/persona/properties/phrases/items/properties/slot"
+                          },
+                          "kind": {
+                            "type": "string",
+                            "enum": [
+                              "particles",
+                              "sound",
+                              "haptic"
+                            ]
+                          },
+                          "variant": {
+                            "type": "string",
+                            "enum": [
+                              "confetti",
+                              "fizzle",
+                              "sparkle"
+                            ]
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 24
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          }
+                        },
+                        "required": [
+                          "on",
+                          "kind",
+                          "variant",
+                          "count"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "maxItems": 64,
+                      "default": []
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "preview": {
+                  "type": "object",
+                  "properties": {
+                    "png": {
+                      "type": "string"
+                    },
+                    "svg": {
+                      "type": "string"
+                    },
+                    "contactSheet": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "format",
+                "id",
+                "layers",
+                "states",
+                "anchors"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "format": {
+                  "type": "string",
+                  "const": "rivePet"
+                },
+                "version": {
+                  "type": "string",
+                  "default": "1.0"
+                },
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9-]+$"
+                },
+                "src": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 240,
+                  "pattern": "^(?![a-zA-Z][a-zA-Z0-9+.-]*:)(?![\\\\/])(?!.*(?:^|[\\\\/])\\.\\.(?:[\\\\/]|$))(?!.*(?:^|[\\\\/])\\.(?:[\\\\/]|$))[^\\\\/]+(?:[\\\\/][^\\\\/]+)*\\.[Rr][Ii][Vv]$"
+                },
+                "artboard": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                },
+                "stateMachine": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 120
+                },
+                "fit": {
+                  "type": "string",
+                  "enum": [
+                    "contain",
+                    "cover",
+                    "fill",
+                    "fitWidth",
+                    "fitHeight",
+                    "none",
+                    "scaleDown"
+                  ],
+                  "default": "contain"
+                },
+                "alignment": {
+                  "type": "string",
+                  "enum": [
+                    "center",
+                    "topLeft",
+                    "topCenter",
+                    "topRight",
+                    "centerLeft",
+                    "centerRight",
+                    "bottomLeft",
+                    "bottomCenter",
+                    "bottomRight"
+                  ],
+                  "default": "center"
+                },
+                "triggerInputs": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "input": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 120
+                      },
+                      "value": {
+                        "anyOf": [
+                          {
+                            "type": "number",
+                            "minimum": -10000,
+                            "maximum": 10000
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "fire": {
+                        "type": "boolean",
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "input"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "propertyNames": {
+                    "enum": [
+                      "idle",
+                      "working",
+                      "success",
+                      "failure",
+                      "waiting_user",
+                      "hover",
+                      "greet",
+                      "move_left",
+                      "move_right",
+                      "responding",
+                      "attention",
+                      "summon",
+                      "dismiss",
+                      "sleep",
+                      "impatient",
+                      "approval_needed",
+                      "tool_running",
+                      "tool_success",
+                      "tool_failure",
+                      "cancelled",
+                      "retrying",
+                      "offline",
+                      "drag_start",
+                      "drag_end",
+                      "idle_variant",
+                      "instruction_received",
+                      "agent_planning",
+                      "agent_coding",
+                      "agent_testing",
+                      "agent_fixing",
+                      "agent_reviewing",
+                      "agent_blocked",
+                      "agent_done",
+                      "automation_queued",
+                      "automation_running",
+                      "automation_waiting",
+                      "automation_success",
+                      "automation_failure",
+                      "tool_pending",
+                      "tool_streaming",
+                      "tool_retrying",
+                      "tool_waiting_input",
+                      "tool_done",
+                      "tool_error",
+                      "auth_required",
+                      "handoff_ready",
+                      "panel_unread",
+                      "panel_processing",
+                      "panel_jump"
+                    ]
+                  }
+                },
+                "persona": {
+                  "$ref": "#/definitions/PetPackManifest/properties/pet/anyOf/0/properties/persona"
+                },
+                "reactiveFx": {
+                  "$ref": "#/definitions/PetPackManifest/properties/pet/anyOf/0/properties/reactiveFx"
+                },
+                "preview": {
+                  "type": "object",
+                  "properties": {
+                    "png": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 240,
+                      "pattern": "^(?![a-zA-Z][a-zA-Z0-9+.-]*:)(?![\\\\/])(?!.*(?:^|[\\\\/])\\.\\.(?:[\\\\/]|$))(?!.*(?:^|[\\\\/])\\.(?:[\\\\/]|$))[^\\\\/]+(?:[\\\\/][^\\\\/]+)*$"
+                    },
+                    "svg": {
+                      "$ref": "#/definitions/PetPackManifest/properties/pet/anyOf/1/properties/preview/properties/png"
+                    },
+                    "contactSheet": {
+                      "$ref": "#/definitions/PetPackManifest/properties/pet/anyOf/1/properties/preview/properties/png"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "format",
+                "id",
+                "src",
+                "stateMachine",
+                "triggerInputs"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PetPackManifest/properties/pet/anyOf/1/properties/preview/properties/png"
+          },
+          "default": []
+        },
+        "preview": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contract",
+        "id",
+        "name",
+        "version",
+        "kind",
+        "pet"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

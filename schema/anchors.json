@@ -3,7 +3,7 @@
   "$id": "https://clawso.ai/schema/skin/anchors.json",
   "anchorVersion": "1.0",
   "contract": "1.0",
-  "count": 19,
+  "count": 30,
   "regions": [
     "app-shell",
     "sidebar",
@@ -12,7 +12,10 @@
     "topbar-actions",
     "sidebar-nav",
     "sidebar-brand",
-    "main"
+    "main",
+    "chat",
+    "companion",
+    "ink-bar"
   ],
   "parts": [
     "nav-item",
@@ -25,6 +28,14 @@
     "tab",
     "table",
     "pill",
-    "badge"
+    "badge",
+    "transcript",
+    "message",
+    "bubble",
+    "tool-call",
+    "composer",
+    "session-list",
+    "session-item",
+    "session-new"
   ]
 }
