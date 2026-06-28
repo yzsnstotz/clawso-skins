@@ -14,9 +14,10 @@
     "shadow",
     "motion",
     "chat",
-    "tool"
+    "tool",
+    "catalog"
   ],
-  "slotCount": 68,
+  "slotCount": 92,
   "slots": [
     {
       "slot": "surface.base",
@@ -493,6 +494,174 @@
       "valueType": "color",
       "modeSensitive": true,
       "description": "Bundled tool ink-bar provider-binding required warning text. Defaults to the danger semantic token."
+    },
+    {
+      "slot": "catalog.tag.neutral.fg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row neutral chip text/icon color."
+    },
+    {
+      "slot": "catalog.tag.neutral.bg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row neutral chip background."
+    },
+    {
+      "slot": "catalog.tag.neutral.border",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row neutral chip border."
+    },
+    {
+      "slot": "catalog.tag.publisher.fg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row publisher chip text/icon color."
+    },
+    {
+      "slot": "catalog.tag.publisher.bg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row publisher chip background."
+    },
+    {
+      "slot": "catalog.tag.publisher.border",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row publisher chip border."
+    },
+    {
+      "slot": "catalog.tag.free.fg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row free chip text/icon color."
+    },
+    {
+      "slot": "catalog.tag.free.bg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row free chip background."
+    },
+    {
+      "slot": "catalog.tag.free.border",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row free chip border."
+    },
+    {
+      "slot": "catalog.tag.installed.fg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row installed/owned chip text/icon color."
+    },
+    {
+      "slot": "catalog.tag.installed.bg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row installed/owned chip background."
+    },
+    {
+      "slot": "catalog.tag.installed.border",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row installed/owned chip border."
+    },
+    {
+      "slot": "catalog.tag.facet.fg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row facet/category chip text/icon color."
+    },
+    {
+      "slot": "catalog.tag.facet.bg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row facet/category chip background."
+    },
+    {
+      "slot": "catalog.tag.facet.border",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row facet/category chip border."
+    },
+    {
+      "slot": "catalog.tag.version.fg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row version chip text/icon color."
+    },
+    {
+      "slot": "catalog.tag.version.bg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row version chip background."
+    },
+    {
+      "slot": "catalog.tag.version.border",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row version chip border."
+    },
+    {
+      "slot": "catalog.tag.verified.fg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row verified chip text/icon color."
+    },
+    {
+      "slot": "catalog.tag.verified.bg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row verified chip background."
+    },
+    {
+      "slot": "catalog.tag.verified.border",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row verified chip border."
+    },
+    {
+      "slot": "catalog.tag.metric.fg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row metric/warning chip text/icon color."
+    },
+    {
+      "slot": "catalog.tag.metric.bg",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row metric/warning chip background."
+    },
+    {
+      "slot": "catalog.tag.metric.border",
+      "category": "catalog",
+      "valueType": "color",
+      "modeSensitive": true,
+      "description": "Catalog row metric/warning chip border."
     }
   ]
 }
