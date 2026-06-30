@@ -3,7 +3,7 @@
   "$id": "https://clawso.ai/schema/skin/token-var-map.json",
   "title": "SkinTokenVarMap",
   "contract": "1.0",
-  "slotCount": 68,
+  "slotCount": 92,
   "vars": {
     "surface.base": [
       "--paper",
@@ -212,6 +212,78 @@
     ],
     "tool.provider-binding.required": [
       "--tool-provider-binding-required"
+    ],
+    "catalog.tag.neutral.fg": [
+      "--catalog-tag-neutral-fg"
+    ],
+    "catalog.tag.neutral.bg": [
+      "--catalog-tag-neutral-bg"
+    ],
+    "catalog.tag.neutral.border": [
+      "--catalog-tag-neutral-border"
+    ],
+    "catalog.tag.publisher.fg": [
+      "--catalog-tag-publisher-fg"
+    ],
+    "catalog.tag.publisher.bg": [
+      "--catalog-tag-publisher-bg"
+    ],
+    "catalog.tag.publisher.border": [
+      "--catalog-tag-publisher-border"
+    ],
+    "catalog.tag.free.fg": [
+      "--catalog-tag-free-fg"
+    ],
+    "catalog.tag.free.bg": [
+      "--catalog-tag-free-bg"
+    ],
+    "catalog.tag.free.border": [
+      "--catalog-tag-free-border"
+    ],
+    "catalog.tag.installed.fg": [
+      "--catalog-tag-installed-fg"
+    ],
+    "catalog.tag.installed.bg": [
+      "--catalog-tag-installed-bg"
+    ],
+    "catalog.tag.installed.border": [
+      "--catalog-tag-installed-border"
+    ],
+    "catalog.tag.facet.fg": [
+      "--catalog-tag-facet-fg"
+    ],
+    "catalog.tag.facet.bg": [
+      "--catalog-tag-facet-bg"
+    ],
+    "catalog.tag.facet.border": [
+      "--catalog-tag-facet-border"
+    ],
+    "catalog.tag.version.fg": [
+      "--catalog-tag-version-fg"
+    ],
+    "catalog.tag.version.bg": [
+      "--catalog-tag-version-bg"
+    ],
+    "catalog.tag.version.border": [
+      "--catalog-tag-version-border"
+    ],
+    "catalog.tag.verified.fg": [
+      "--catalog-tag-verified-fg"
+    ],
+    "catalog.tag.verified.bg": [
+      "--catalog-tag-verified-bg"
+    ],
+    "catalog.tag.verified.border": [
+      "--catalog-tag-verified-border"
+    ],
+    "catalog.tag.metric.fg": [
+      "--catalog-tag-metric-fg"
+    ],
+    "catalog.tag.metric.bg": [
+      "--catalog-tag-metric-bg"
+    ],
+    "catalog.tag.metric.border": [
+      "--catalog-tag-metric-border"
     ]
   }
 }

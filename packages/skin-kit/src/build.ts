@@ -3,10 +3,9 @@
  *
  * Two bundle formats live here:
  *   - buildSkin(): the legacy `.skin` zip (adm-zip) used by `clawso-skin build`.
- *   - buildSkinTarball(): a gzipped USTAR tarball — the format the marketplace
- *     submit endpoint (`POST /api/marketplace/skins/submit`) accepts. Both reuse
- *     the same directory walk + skip rules so the two formats always carry the
- *     same files.
+ *   - buildSkinTarball(): a gzipped USTAR tarball — the format Creator Studio
+ *     BFF accepts for creator skin submissions. Both reuse the same directory
+ *     walk + skip rules so the two formats always carry the same files.
  */
 import * as fs from "node:fs";
 import * as path from "node:path";
@@ -15,7 +14,7 @@ import AdmZip from "adm-zip";
 
 const SKIP_NAMES = new Set([".DS_Store", "node_modules", ".git"]);
 
-/** Files that are publish-time inputs, never part of the shipped bundle. */
+/** Local review-note files are never part of the shipped skin bundle. */
 const PUBLISH_META_NAMES = new Set([
   "admin_review_checklist.md",
   "deployment_verification.md",
@@ -56,9 +55,8 @@ export interface BundleEntry {
 /**
  * Walk `dir` and collect every bundle file as `{ name, data }`, using the same
  * skip rules as the zip builder. Paths are POSIX-relative to `dir` (so
- * `skin.json` sits at the bundle root). The publish-time review markdown files
- * (admin_review_checklist.md / deployment_verification.md) are excluded — they
- * travel as their own multipart parts, not inside the .skin bundle.
+ * `skin.json` sits at the bundle root). Local review-note markdown files are
+ * excluded because Creator Studio review reads the immutable submitted snapshot.
  */
 export function collectBundleEntries(dir: string): BundleEntry[] {
   const entries: BundleEntry[] = [];

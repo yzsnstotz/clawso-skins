@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * @clawso/skin-kit — CLI for authoring Clawso skins.
+ * @clawso/skin-kit — CLI for authoring Clawso skins and pet-pack artifacts.
  *
  * Commands:
- *   validate <dir>           schema + security validation; exit 0 only if all pass
+ *   validate <dir>           skin/pet schema + security validation; exit 0 only if all pass
  *   build    <dir>           validate, then zip into <id>.skin
- *   publish  <dir>           validate + build .skin tar.gz + submit to marketplace
+ *   publish  <dir>           validate + build .skin tar.gz + submit through Creator Studio BFF
  *                            [--token t] [--api url] [--dry-run] [--notes text]
  *   preview  <dir> [--mode m] [--emit file.html] [--port n]
  *                            serve (or emit) the shell snapshot with the skin applied
@@ -17,7 +17,7 @@
 import * as fs from "node:fs";
 import * as http from "node:http";
 import * as path from "node:path";
-import { validateSkin } from "./validate";
+import { validateArtifact, validateSkin } from "./validate";
 import { buildSkin } from "./build";
 import { publishSkin } from "./publish";
 import { applySkin } from "./preview";
@@ -55,8 +55,9 @@ function parseFlags(args: string[]): {
 }
 
 function printValidation(dir: string): boolean {
-  const result = validateSkin(dir);
+  const result = validateArtifact(dir);
   process.stdout.write(`Validating ${path.resolve(dir)}\n`);
+  process.stdout.write(`  artifact: ${result.kind}\n`);
   for (const r of result.results) {
     const mark = r.pass ? "PASS" : "FAIL";
     process.stdout.write(`  [${mark}] ${r.rule}\n`);
@@ -82,6 +83,14 @@ function cmdBuild(args: string[]): void {
   const dir = positional[0];
   if (!dir) fail("usage: clawso-skin build <dir>");
   if (!fs.existsSync(dir)) fail(`directory not found: ${dir}`);
+  if (!fs.existsSync(path.join(dir, "skin.json"))) {
+    if (fs.existsSync(path.join(dir, "pet.json"))) {
+      fail(
+        "build currently supports skin artifacts only. Pet packs should be imported into Creator Studio for runtime preview and packaging."
+      );
+    }
+    fail("skin.json not found; cannot build a .skin bundle");
+  }
   const ok = printValidation(dir);
   if (!ok) {
     process.stderr.write("build aborted: validation failed.\n");
@@ -106,6 +115,14 @@ async function cmdPublish(args: string[]): Promise<void> {
       "usage: clawso-skin publish <dir> [--token t] [--api url] [--dry-run] [--notes text]"
     );
   if (!fs.existsSync(dir)) fail(`directory not found: ${dir}`);
+  if (!fs.existsSync(path.join(dir, "skin.json"))) {
+    if (fs.existsSync(path.join(dir, "pet.json"))) {
+      fail(
+        "publish currently supports skin artifacts only. Use Creator Studio to preflight and publish pet packs."
+      );
+    }
+    fail("skin.json not found; cannot publish a .skin bundle");
+  }
 
   const apiBase =
     (typeof flags.api === "string" && flags.api) ||
@@ -118,10 +135,10 @@ async function cmdPublish(args: string[]): Promise<void> {
   const dryRun = flags["dry-run"] === true || flags.dryRun === true;
   const notes = typeof flags.notes === "string" ? flags.notes : undefined;
 
-  // A real run needs a token up front — fail clearly before building anything.
+  // A real run needs a signed-in creator token up front — fail clearly before building anything.
   if (!dryRun && !token) {
     fail(
-      "no publisher token: pass --token <t> or set CLAWSO_DEV_TOKEN (a dealer/publisher dev token).\n" +
+      "no creator token: pass --token <t> or set CLAWSO_DEV_TOKEN (signed-in certified creator bearer token).\n" +
         "       (use --dry-run to verify the bundle + multipart plan offline without a token)"
     );
   }
@@ -138,38 +155,38 @@ async function cmdPublish(args: string[]): Promise<void> {
     process.stdout.write(`Publish dry-run for ${plan.skin.name ?? plan.skin.id}\n`);
     process.stdout.write(`  skin:      ${plan.skin.id}@${plan.skin.version}\n`);
     process.stdout.write(`  apiBase:   ${plan.apiBase}\n`);
-    process.stdout.write(`  endpoint:  ${plan.endpoint}\n`);
-    process.stdout.write(`  POST multipart/form-data parts:\n`);
+    process.stdout.write(`  preflight: ${plan.preflightEndpoint}\n`);
+    process.stdout.write(`  submit:    ${plan.submitEndpoint}\n`);
+    process.stdout.write(`  POST multipart/form-data fields:\n`);
     process.stdout.write(
       `    bundle                  ${plan.bundle.filename}  ${plan.bundle.bytes} bytes\n`
     );
     process.stdout.write(`                            sha256=${plan.bundle.sha256}\n`);
-    process.stdout.write(
-      `    admin_review_checklist  ${plan.adminReviewChecklist.filename}  ` +
-        `${plan.adminReviewChecklist.bytes} bytes (${plan.adminReviewChecklist.source})\n`
-    );
-    process.stdout.write(
-      `    deployment_verification ${plan.deploymentVerification.filename}  ` +
-        `${plan.deploymentVerification.bytes} bytes (${plan.deploymentVerification.source})\n`
-    );
+    process.stdout.write(`    manifest                skin.json\n`);
+    process.stdout.write(`    bundleSizeBytes         ${plan.sizes.bundleSizeBytes}\n`);
+    process.stdout.write(`    decompressedBytes       ${plan.sizes.decompressedBytes}\n`);
+    process.stdout.write(`    fileCount               ${plan.sizes.fileCount}\n`);
+    if (typeof plan.sizes.skinBackgroundSizeBytes === "number") {
+      process.stdout.write(`    skinBackgroundSizeBytes ${plan.sizes.skinBackgroundSizeBytes}\n`);
+    }
     process.stdout.write(
       `    release_notes           ${
         plan.releaseNotes.present ? `${plan.releaseNotes.bytes} bytes` : "(none)"
       }\n`
     );
-    process.stdout.write("No network call made (--dry-run).\n");
+    process.stdout.write("No network call made (--dry-run). Import the artifact into Creator Studio or run without --dry-run with a certified creator token.\n");
     process.exit(0);
   }
 
   const r = result.response ?? {};
-  process.stdout.write(`Submitted ${plan.skin.id}@${plan.skin.version} to ${plan.apiBase}\n`);
-  process.stdout.write(`  slug:      ${r.slug ?? plan.skin.id}\n`);
-  process.stdout.write(`  version:   ${r.version ?? plan.skin.version}\n`);
-  process.stdout.write(`  state:     ${r.state ?? "(unknown)"}\n`);
-  if (r.review_url) process.stdout.write(`  review:    ${r.review_url}\n`);
-  if (r.estimated_review_time)
-    process.stdout.write(`  est. time: ${r.estimated_review_time}\n`);
-  if (r.bundle_sha256) process.stdout.write(`  sha256:    ${r.bundle_sha256}\n`);
+  const item = r.item && typeof r.item === "object" ? r.item : r;
+  process.stdout.write(`Submitted ${plan.skin.id}@${plan.skin.version} to Creator Studio review\n`);
+  process.stdout.write(`  id:        ${item.id ?? "(unknown)"}\n`);
+  process.stdout.write(`  slug:      ${item.slug ?? plan.skin.id}\n`);
+  process.stdout.write(`  version:   ${item.targetVersion ?? item.version ?? plan.skin.version}\n`);
+  process.stdout.write(`  status:    ${item.status ?? "(unknown)"}\n`);
+  if (item.artifactHash) process.stdout.write(`  artifact:  ${item.artifactHash}\n`);
+  if (item.bundleSha256) process.stdout.write(`  sha256:    ${item.bundleSha256}\n`);
   if (Array.isArray(r.warnings) && r.warnings.length) {
     process.stdout.write(`  warnings:\n`);
     for (const w of r.warnings) process.stdout.write(`    - ${w}\n`);
@@ -183,6 +200,12 @@ function cmdPreview(args: string[]): void {
   const dir = positional[0];
   if (!dir) fail("usage: clawso-skin preview <dir> [--mode m] [--emit file] [--port n]");
   if (!fs.existsSync(dir)) fail(`directory not found: ${dir}`);
+  if (!fs.existsSync(path.join(dir, "skin.json"))) {
+    if (fs.existsSync(path.join(dir, "pet.json"))) {
+      fail("preview currently supports skin shell snapshots only. Use Creator Studio for pet runtime preview.");
+    }
+    fail("skin.json not found; cannot preview a skin");
+  }
 
   const mode = typeof flags.mode === "string" ? flags.mode : undefined;
 
@@ -311,19 +334,19 @@ function cmdInit(args: string[]): void {
 function usage(): void {
   process.stdout.write(
     [
-      "clawso-skin — author Clawso skins",
+      "clawso-skin — author Clawso skin and pet-pack artifacts",
       "",
       "Commands:",
-      "  validate <dir>                         schema + security checks",
-      "  build    <dir> [--out dir]             validate, then zip <id>.skin",
-      "  publish  <dir> [--token t] [--api u]   validate + build .skin tar.gz +",
-      "                 [--dry-run] [--notes t]  submit to the marketplace",
+      "  validate <dir>                         skin/pet schema + security checks",
+      "  build    <dir> [--out dir]             validate skin, then zip <id>.skin",
+      "  publish  <dir> [--token t] [--api u]   validate skin + BFF preflight +",
+      "                 [--dry-run] [--notes t]  creator submission",
       "  preview  <dir> [--mode m] [--emit f]   serve/emit shell snapshot + skin",
       "                 [--port n]",
       "  init     <name>                        scaffold a new skin",
       "",
-      "Env: CLAWSO_API_BASE_URL (publish target; default https://app.clawso.ai)",
-      "     CLAWSO_DEV_TOKEN     (publisher bearer token for publish)",
+      "Env: CLAWSO_API_BASE_URL (Creator Studio BFF base; default https://app.clawso.ai)",
+      "     CLAWSO_DEV_TOKEN     (signed-in certified creator bearer token for publish)",
       "",
     ].join("\n")
   );

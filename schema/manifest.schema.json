@@ -148,6 +148,7 @@
                     "enum": [
                       "/",
                       "/discover",
+                      "/market",
                       "/my",
                       "/chat",
                       "/settings/providers",
@@ -155,6 +156,7 @@
                       "/settings/tools",
                       "/settings/diagnostics",
                       "discover",
+                      "market",
                       "my-stuff",
                       "agents",
                       "expert",

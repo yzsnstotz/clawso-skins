@@ -8,6 +8,7 @@ import * as path from "node:path";
 import Ajv from "ajv";
 import {
   loadManifestSchema,
+  loadPetPackSchema,
   loadTokenVarMap,
   TokenVarMap,
 } from "./artifacts";
@@ -24,6 +25,12 @@ export interface ValidateResult {
   results: RuleResult[];
   /** Parsed manifest if it loaded, else null. */
   manifest: Record<string, any> | null;
+}
+
+export type ArtifactKind = "skin" | "pet-pack" | "unknown";
+
+export interface ValidateArtifactResult extends ValidateResult {
+  kind: ArtifactKind;
 }
 
 /** Anchors whose hiding/covering is a security risk (irreversible actions). */
@@ -44,6 +51,18 @@ function loadSkinJson(dir: string): { manifest: any | null; error?: string } {
     return { manifest: JSON.parse(fs.readFileSync(file, "utf8")) };
   } catch (e) {
     return { manifest: null, error: `skin.json is not valid JSON: ${(e as Error).message}` };
+  }
+}
+
+function loadPetJson(dir: string): { manifest: any | null; error?: string } {
+  const file = path.join(dir, "pet.json");
+  if (!fs.existsSync(file)) {
+    return { manifest: null, error: `pet.json not found in ${dir}` };
+  }
+  try {
+    return { manifest: JSON.parse(fs.readFileSync(file, "utf8")) };
+  } catch (e) {
+    return { manifest: null, error: `pet.json is not valid JSON: ${(e as Error).message}` };
   }
 }
 
@@ -73,6 +92,10 @@ function isOffBundleUrl(raw: string): boolean {
   const normalized = path.posix.normalize(ref);
   if (normalized.startsWith("..")) return true;
   return false;
+}
+
+function assetRefEscapesBundle(raw: string): boolean {
+  return isOffBundleUrl(raw);
 }
 
 interface SecurityScan {
@@ -299,6 +322,92 @@ export function validateSkin(dir: string): ValidateResult {
 
   const ok = results.every((r) => r.pass);
   return { ok, results, manifest };
+}
+
+function schemaResult(schema: unknown, manifest: Record<string, any>): RuleResult {
+  const ajv = new Ajv({ strict: false, allErrors: true });
+  const validate = ajv.compile(schema as object);
+  const valid = validate(manifest);
+  return {
+    rule: "manifest:schema",
+    pass: !!valid,
+    detail: valid
+      ? []
+      : (validate.errors ?? []).map(
+          (e) => `${e.instancePath || "(root)"} ${e.message ?? ""}`.trim()
+        ),
+  };
+}
+
+function collectPetAssetRefs(manifest: Record<string, any>): string[] {
+  const refs: string[] = [];
+  if (Array.isArray(manifest.assets)) {
+    for (const ref of manifest.assets) if (typeof ref === "string") refs.push(ref);
+  }
+  if (typeof manifest.preview === "string") refs.push(manifest.preview);
+  const pet = manifest.pet && typeof manifest.pet === "object" ? manifest.pet : {};
+  if (typeof pet.src === "string") refs.push(pet.src);
+  const petPreview = pet.preview && typeof pet.preview === "object" ? pet.preview : {};
+  for (const ref of Object.values(petPreview)) {
+    if (typeof ref === "string") refs.push(ref);
+  }
+  return Array.from(new Set(refs));
+}
+
+export function validatePetPack(dir: string): ValidateResult {
+  const results: RuleResult[] = [];
+  const { manifest, error } = loadPetJson(dir);
+  if (!manifest) {
+    results.push({
+      rule: "manifest:loadable",
+      pass: false,
+      detail: [error ?? "pet.json could not be loaded"],
+    });
+    return { ok: false, results, manifest: null };
+  }
+  results.push({ rule: "manifest:loadable", pass: true, detail: [] });
+  results.push(schemaResult(loadPetPackSchema(), manifest));
+
+  const refs = collectPetAssetRefs(manifest);
+  const escaped = refs.filter(assetRefEscapesBundle);
+  results.push({
+    rule: "security:no-off-bundle-asset",
+    pass: escaped.length === 0,
+    detail: escaped.map((ref) => `asset reference escapes the pet-pack bundle: ${ref}`),
+  });
+
+  const missing = refs
+    .filter((ref) => !assetRefEscapesBundle(ref))
+    .filter((ref) => !fs.existsSync(path.join(dir, ref)));
+  results.push({
+    rule: "assets:present",
+    pass: missing.length === 0,
+    detail: missing.map((ref) => `referenced asset is missing: ${ref}`),
+  });
+
+  const ok = results.every((r) => r.pass);
+  return { ok, results, manifest };
+}
+
+export function validateArtifact(dir: string): ValidateArtifactResult {
+  if (fs.existsSync(path.join(dir, "skin.json"))) {
+    return { kind: "skin", ...validateSkin(dir) };
+  }
+  if (fs.existsSync(path.join(dir, "pet.json"))) {
+    return { kind: "pet-pack", ...validatePetPack(dir) };
+  }
+  return {
+    kind: "unknown",
+    ok: false,
+    manifest: null,
+    results: [
+      {
+        rule: "artifact:kind",
+        pass: false,
+        detail: [`${dir} must contain either skin.json or pet.json`],
+      },
+    ],
+  };
 }
 
 export { loadTokenVarMap };
