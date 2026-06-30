@@ -26,8 +26,9 @@ Use the CLI or a skill when the author wants automation or a developer workflow.
 
 1. Generate or edit the skin/pet artifact.
 2. Run local schema/security validation when the CLI is available.
-3. Optionally build the local bundle.
-4. Import the artifact into Creator Studio, or submit through a future authenticated automation path once available.
+3. For skins, optionally build the local `.skin` bundle and run a publish dry-run.
+4. Import the artifact into Creator Studio, or for skins submit through the current authenticated Creator Studio BFF path.
+5. For pet packs, use Creator Studio for runtime preview, BFF preflight, and submission.
 
 The CLI is optional for designers. Agents may install or bootstrap it, but must still produce Creator Studio-compatible artifacts and must surface BFF preflight failures honestly.
 
@@ -86,16 +87,25 @@ This matters for both skins and pet packs because local appearance/runtime state
 
 ## 6. Current CLI commands
 
-The current `skin-kit` CLI is skin-first:
+The current `skin-kit` CLI validates both skin and pet-pack artifacts. Skin preview/build/publish helpers are available; pet-pack runtime preview and final submission stay in Creator Studio.
 
 ```bash
 npm --prefix packages/skin-kit run build
 node packages/skin-kit/dist/cli.js validate examples/default
+node packages/skin-kit/dist/cli.js validate examples/pet-packs/pawsnap-puppy
 node packages/skin-kit/dist/cli.js build examples/default
-node packages/skin-kit/dist/cli.js preview examples/default --out /tmp/clawso-skin-preview.html
+node packages/skin-kit/dist/cli.js preview examples/default --emit /tmp/clawso-skin-preview.html
+node packages/skin-kit/dist/cli.js publish examples/default --dry-run --api http://127.0.0.1:18808 --token test
 ```
 
-Pet-pack CLI coverage is still contract/schema oriented in v1. Use Creator Studio for pet runtime preview and final submission until the automation submit path is explicitly documented.
+Skin `publish` uses the same BFF contract as Creator Studio:
+
+```text
+POST /api/creator/skin/preflight
+POST /api/creator/skin/submissions
+```
+
+Pet-pack CLI coverage is contract/schema oriented in v1. Use Creator Studio for pet runtime preview and final submission.
 
 ## 7. Public release gate
 
@@ -104,6 +114,6 @@ Before making this repo public, confirm:
 - schema files were regenerated from `packages/skin-contract`
 - README and specs do not claim L4/plugin/MOD support for skin/pet v1
 - skin and pet skill entrypoints are present
-- example artifacts validate
+- skin and pet-pack example artifacts validate
 - `packages/skin-kit` builds and its smoke tests pass
 - no private Clawso client source, tokens, endpoints, or internal secrets are included

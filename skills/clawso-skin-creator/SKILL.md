@@ -23,12 +23,14 @@ Do not produce pet-pack artifacts in this skill. Use `clawso-pet-creator` for pe
    - Otherwise run `npm --prefix packages/skin-kit install` if dependencies are missing, then `npm --prefix packages/skin-kit run build`.
    - Then run `node packages/skin-kit/dist/cli.js validate <skin-dir>`.
 4. If local validation passes, optionally build with `node packages/skin-kit/dist/cli.js build <skin-dir>`.
-5. Tell the author how to import the artifact into Clawso Creator Studio for client preview, BFF preflight, and submission.
+5. Before submission, run `node packages/skin-kit/dist/cli.js publish <skin-dir> --dry-run --api <bff-url> --token test` to verify the BFF preflight/submission plan without network calls.
+6. Tell the author how to import the artifact into Clawso Creator Studio for client preview, BFF preflight, pricing, and submission. If a certified creator token is available, `clawso-skin publish` can create the skin review submission through the current Creator Studio BFF endpoints.
 
 ## Rules
 
 - The CLI is helpful but optional; designers may use Creator Studio upload/import instead.
 - BFF preflight requires a signed-in certified creator. Do not imply local validation is marketplace approval.
+- Real publishing goes through `/api/creator/skin/preflight` and `/api/creator/skin/submissions`; do not use legacy marketplace direct-submit endpoints.
 - Do not hide local or BFF preflight failures. Report failures plainly with the file/path/rule that triggered them.
 - Do not claim L4/plugin/MOD support in v1. Skin v1 covers tokens, appearance CSS, and bounded layout only.
 - Keep the skin declarative. Do not add JavaScript, remote imports, secret-bearing URLs, or off-bundle assets.
@@ -40,5 +42,6 @@ Return:
 
 - artifact directory path
 - validation commands run and pass/fail state
+- dry-run publish plan when relevant
 - known warnings or unsupported requests
 - next Creator Studio action: import, preview, preflight, or submit

@@ -1,8 +1,24 @@
 {
   "name": "@clawso/skin-kit",
   "version": "0.1.0",
-  "description": "CLI for authoring, validating, bundling, and previewing Clawso skins.",
+  "description": "CLI for authoring Clawso skins and validating Clawso pet-pack artifacts.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yzsnstotz/clawso-skins.git",
+    "directory": "packages/skin-kit"
+  },
+  "homepage": "https://github.com/yzsnstotz/clawso-skins#readme",
+  "bugs": {
+    "url": "https://github.com/yzsnstotz/clawso-skins/issues"
+  },
+  "keywords": [
+    "clawso",
+    "skins",
+    "pet-pack",
+    "creator-studio",
+    "marketplace"
+  ],
   "type": "commonjs",
   "bin": {
     "clawso-skin": "dist/cli.js"

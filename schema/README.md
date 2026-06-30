@@ -1,8 +1,9 @@
 # schema/ — generated, do not hand-edit
 
-These files are the **machine-readable** form of the [skin contract](../spec/skin-contract-v1.md):
+These files are the **machine-readable** form of the [skin contract](../spec/skin-contract-v1.md) and pet-pack contract:
 
 - `manifest.schema.json` — JSON Schema for a skin's `skin.json`
+- `pet-pack.schema.json` — JSON Schema for a pet-pack's `pet.json`
 - `tokens.schema.json` — the semantic token slot list (names + value types)
 - `anchors.json` — the versioned, append-only `data-region` / `data-part` registry
 - `token-var-map.json` — each semantic token slot → the backing CSS custom-property name(s) it writes (the inverse of the client's legacy var→slot table, plus a forward-derived `--var` for gap slots). Lets the SDK/preview project a skin's slot values into CSS var overrides without importing monorepo source.

@@ -103,6 +103,10 @@ export function loadManifestSchema(): ManifestSchema {
   );
 }
 
+export function loadPetPackSchema(): ManifestSchema {
+  return readJson<ManifestSchema>(path.join(schemaDir(), "pet-pack.schema.json"));
+}
+
 export function loadTokenVarMap(): TokenVarMap {
   return readJson<TokenVarMap>(path.join(schemaDir(), "token-var-map.json"));
 }

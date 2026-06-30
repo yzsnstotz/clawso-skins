@@ -1,0 +1,622 @@
+{
+  "contract": "1.0",
+  "id": "pawsnap-puppy",
+  "name": "Pawsnap Puppy",
+  "version": "1.0.0",
+  "author": "Clawso Samples",
+  "kind": "pet-pack",
+  "minPetPack": "1.0",
+  "pet": {
+    "format": "vectorPet",
+    "version": "1.0",
+    "id": "pawsnap-puppy-vector",
+    "viewBox": "0 0 64 64",
+    "palette": {
+      "fur": "#d88335",
+      "furLight": "#f5bd72",
+      "ear": "#a95d2c",
+      "muzzle": "#ffe2a6",
+      "ink": "#241710",
+      "collar": "#3f8df4",
+      "tag": "#ffd44d",
+      "sparkle": "#ff8a3d"
+    },
+    "layers": [
+      {
+        "id": "body",
+        "nodes": [
+          {
+            "tag": "ellipse",
+            "attrs": {
+              "cx": 32,
+              "cy": 39,
+              "rx": 16,
+              "ry": 18,
+              "fill": "{furLight}"
+            }
+          },
+          {
+            "tag": "ellipse",
+            "attrs": {
+              "cx": 19,
+              "cy": 42,
+              "rx": 6,
+              "ry": 14,
+              "fill": "{ear}",
+              "transform": "rotate(-18 19 42)"
+            }
+          },
+          {
+            "tag": "ellipse",
+            "attrs": {
+              "cx": 45,
+              "cy": 42,
+              "rx": 6,
+              "ry": 14,
+              "fill": "{ear}",
+              "transform": "rotate(18 45 42)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "head",
+        "nodes": [
+          {
+            "tag": "circle",
+            "attrs": {
+              "cx": 32,
+              "cy": 24,
+              "r": 16,
+              "fill": "{furLight}"
+            }
+          },
+          {
+            "tag": "ellipse",
+            "attrs": {
+              "cx": 22,
+              "cy": 24,
+              "rx": 5,
+              "ry": 11,
+              "fill": "{fur}",
+              "transform": "rotate(-20 22 24)"
+            }
+          },
+          {
+            "tag": "ellipse",
+            "attrs": {
+              "cx": 42,
+              "cy": 24,
+              "rx": 5,
+              "ry": 11,
+              "fill": "{fur}",
+              "transform": "rotate(20 42 24)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "face",
+        "nodes": [
+          {
+            "tag": "circle",
+            "attrs": {
+              "cx": 26,
+              "cy": 23,
+              "r": 2.4,
+              "fill": "{ink}"
+            }
+          },
+          {
+            "tag": "circle",
+            "attrs": {
+              "cx": 38,
+              "cy": 23,
+              "r": 2.4,
+              "fill": "{ink}"
+            }
+          },
+          {
+            "tag": "ellipse",
+            "attrs": {
+              "cx": 32,
+              "cy": 29,
+              "rx": 7,
+              "ry": 5,
+              "fill": "{muzzle}"
+            }
+          },
+          {
+            "tag": "circle",
+            "attrs": {
+              "cx": 32,
+              "cy": 27,
+              "r": 2,
+              "fill": "{ink}"
+            }
+          }
+        ]
+      },
+      {
+        "id": "mouth",
+        "nodes": [
+          {
+            "tag": "path",
+            "attrs": {
+              "d": "M28 31 Q32 35 36 31",
+              "fill": "none",
+              "stroke": "{ink}",
+              "stroke-width": 2,
+              "stroke-linecap": "round"
+            }
+          }
+        ]
+      },
+      {
+        "id": "tail",
+        "nodes": [
+          {
+            "tag": "path",
+            "attrs": {
+              "d": "M47 37 C58 31 56 47 48 49",
+              "fill": "none",
+              "stroke": "{fur}",
+              "stroke-width": 5,
+              "stroke-linecap": "round"
+            }
+          }
+        ]
+      },
+      {
+        "id": "collar",
+        "nodes": [
+          {
+            "tag": "path",
+            "attrs": {
+              "d": "M20 34 Q32 43 44 34",
+              "fill": "none",
+              "stroke": "{collar}",
+              "stroke-width": 4,
+              "stroke-linecap": "round"
+            }
+          },
+          {
+            "tag": "circle",
+            "attrs": {
+              "cx": 32,
+              "cy": 39,
+              "r": 2.4,
+              "fill": "{tag}"
+            }
+          }
+        ]
+      },
+      {
+        "id": "fx",
+        "nodes": [
+          {
+            "tag": "path",
+            "attrs": {
+              "d": "M48 14 L50 19 L55 21 L50 23 L48 28 L46 23 L41 21 L46 19 Z",
+              "fill": "{sparkle}",
+              "opacity": 0.92
+            }
+          }
+        ]
+      }
+    ],
+    "states": {
+      "idle": {
+        "layerTransforms": {
+          "body": {
+            "translateY": 0
+          },
+          "fx": {
+            "opacity": 0
+          }
+        },
+        "expression": "ready"
+      },
+      "thinking": {
+        "layerTransforms": {
+          "head": {
+            "rotateDeg": -4
+          },
+          "fx": {
+            "opacity": 1
+          }
+        },
+        "expression": "curious"
+      },
+      "talking": {
+        "layerTransforms": {
+          "mouth": {
+            "scaleY": 1.5
+          },
+          "tail": {
+            "rotateDeg": 8
+          }
+        },
+        "expression": "speaking"
+      },
+      "celebrate": {
+        "layerTransforms": {
+          "body": {
+            "translateY": -4
+          },
+          "tail": {
+            "rotateDeg": 18
+          },
+          "fx": {
+            "opacity": 1
+          }
+        },
+        "expression": "celebrating"
+      },
+      "wince": {
+        "layerTransforms": {
+          "head": {
+            "rotateDeg": 6
+          },
+          "body": {
+            "translateX": -2
+          },
+          "fx": {
+            "opacity": 0
+          }
+        },
+        "expression": "recovering"
+      }
+    },
+    "anchors": {
+      "headCenterX": 32,
+      "headTopY": 8,
+      "sparkleX": 49,
+      "sparkleY": 20,
+      "sweatX": 44,
+      "sweatY": 18,
+      "blushLeftX": 22,
+      "blushRightX": 42,
+      "blushY": 30
+    },
+    "actions": [
+      {
+        "id": "breathe",
+        "kind": "breathe",
+        "targetLayer": "body",
+        "durationMs": 1600,
+        "loop": true,
+        "intensity": 0.6,
+        "axis": "y",
+        "easing": "ease-in-out"
+      },
+      {
+        "id": "think",
+        "kind": "think",
+        "targetLayer": "head",
+        "durationMs": 1200,
+        "loop": true,
+        "intensity": 0.8,
+        "axis": "both",
+        "easing": "ease"
+      },
+      {
+        "id": "speak",
+        "kind": "stream",
+        "targetLayer": "mouth",
+        "durationMs": 480,
+        "loop": true,
+        "intensity": 1,
+        "axis": "y",
+        "easing": "ease-in-out"
+      },
+      {
+        "id": "wag",
+        "kind": "wave",
+        "targetLayer": "tail",
+        "durationMs": 540,
+        "loop": true,
+        "intensity": 1.2,
+        "axis": "both",
+        "easing": "ease-in-out"
+      },
+      {
+        "id": "perk",
+        "kind": "perk",
+        "targetLayer": "head",
+        "durationMs": 620,
+        "loop": false,
+        "intensity": 1.1,
+        "axis": "y",
+        "easing": "ease-out"
+      },
+      {
+        "id": "shake",
+        "kind": "shake",
+        "targetLayer": "body",
+        "durationMs": 520,
+        "loop": false,
+        "intensity": 1.2,
+        "axis": "x",
+        "easing": "ease"
+      },
+      {
+        "id": "sparkle",
+        "kind": "pulse",
+        "targetLayer": "fx",
+        "durationMs": 760,
+        "loop": false,
+        "intensity": 1,
+        "axis": "both",
+        "easing": "ease-out"
+      }
+    ],
+    "triggerSlots": {
+      "idle": {
+        "action": "breathe",
+        "durationMs": 1600,
+        "loop": true
+      },
+      "working": {
+        "action": "think",
+        "durationMs": 1200,
+        "loop": true
+      },
+      "success": {
+        "action": "sparkle",
+        "durationMs": 760
+      },
+      "failure": {
+        "action": "shake",
+        "durationMs": 520
+      },
+      "waiting_user": {
+        "action": "perk",
+        "durationMs": 620
+      },
+      "hover": {
+        "action": "wag",
+        "durationMs": 540
+      },
+      "greet": {
+        "action": "wag",
+        "durationMs": 800
+      },
+      "move_left": {
+        "action": "perk",
+        "durationMs": 420
+      },
+      "move_right": {
+        "action": "perk",
+        "durationMs": 420
+      },
+      "responding": {
+        "action": "speak",
+        "durationMs": 480,
+        "loop": true
+      },
+      "attention": {
+        "action": "perk",
+        "durationMs": 620
+      },
+      "summon": {
+        "action": "wag",
+        "durationMs": 700
+      },
+      "dismiss": {
+        "action": "breathe",
+        "durationMs": 600
+      },
+      "sleep": {
+        "action": "breathe",
+        "durationMs": 2000,
+        "loop": true
+      },
+      "impatient": {
+        "action": "shake",
+        "durationMs": 420
+      },
+      "approval_needed": {
+        "action": "perk",
+        "durationMs": 700
+      },
+      "tool_running": {
+        "action": "think",
+        "durationMs": 980,
+        "loop": true
+      },
+      "tool_success": {
+        "action": "sparkle",
+        "durationMs": 760
+      },
+      "tool_failure": {
+        "action": "shake",
+        "durationMs": 520
+      },
+      "cancelled": {
+        "action": "breathe",
+        "durationMs": 900
+      },
+      "retrying": {
+        "action": "think",
+        "durationMs": 800,
+        "loop": true
+      },
+      "offline": {
+        "action": "breathe",
+        "durationMs": 2200,
+        "loop": true
+      },
+      "drag_start": {
+        "action": "perk",
+        "durationMs": 360
+      },
+      "drag_end": {
+        "action": "wag",
+        "durationMs": 480
+      },
+      "agent_planning": {
+        "action": "think",
+        "durationMs": 1200,
+        "loop": true
+      },
+      "agent_coding": {
+        "action": "think",
+        "durationMs": 900,
+        "loop": true
+      },
+      "agent_testing": {
+        "action": "perk",
+        "durationMs": 640,
+        "loop": true
+      },
+      "agent_blocked": {
+        "action": "shake",
+        "durationMs": 520
+      },
+      "agent_done": {
+        "action": "sparkle",
+        "durationMs": 760
+      },
+      "automation_running": {
+        "action": "think",
+        "durationMs": 900,
+        "loop": true
+      },
+      "automation_success": {
+        "action": "sparkle",
+        "durationMs": 760
+      },
+      "automation_failure": {
+        "action": "shake",
+        "durationMs": 520
+      },
+      "tool_streaming": {
+        "action": "speak",
+        "durationMs": 480,
+        "loop": true
+      },
+      "tool_waiting_input": {
+        "action": "perk",
+        "durationMs": 700
+      },
+      "auth_required": {
+        "action": "perk",
+        "durationMs": 700
+      },
+      "panel_unread": {
+        "action": "perk",
+        "durationMs": 520
+      },
+      "panel_processing": {
+        "action": "think",
+        "durationMs": 900,
+        "loop": true
+      }
+    },
+    "persona": {
+      "version": "1.0",
+      "locale": "en-US",
+      "tone": "supportive",
+      "style": "short, observant, task-aware",
+      "personality": [
+        "loyal",
+        "quick",
+        "careful"
+      ],
+      "maxBubbleChars": 120,
+      "fallback": {
+        "text": "Ready when you are.",
+        "locale": "en-US"
+      },
+      "phrases": [
+        {
+          "slot": "greet",
+          "text": "Back on patrol.",
+          "context": "default",
+          "weight": 10
+        },
+        {
+          "slot": "working",
+          "text": "Sniffing through the task.",
+          "context": "agent",
+          "weight": 8
+        },
+        {
+          "slot": "responding",
+          "text": "I found a trail.",
+          "context": "agent",
+          "weight": 8
+        },
+        {
+          "slot": "success",
+          "text": "Clean catch.",
+          "context": "success",
+          "weight": 10
+        },
+        {
+          "slot": "failure",
+          "text": "That track broke. I can try again.",
+          "context": "failure",
+          "weight": 7
+        },
+        {
+          "slot": "waiting_user",
+          "text": "Your move.",
+          "context": "waiting",
+          "weight": 7
+        },
+        {
+          "slot": "auth_required",
+          "text": "This needs your sign-in.",
+          "context": "auth",
+          "weight": 7
+        },
+        {
+          "slot": "agent_done",
+          "text": "Task wrapped.",
+          "context": "success",
+          "weight": 9
+        }
+      ]
+    },
+    "reactiveFx": {
+      "version": "1.0",
+      "bindings": [
+        {
+          "on": "celebrate",
+          "slot": "success",
+          "kind": "particles",
+          "variant": "confetti",
+          "count": 18,
+          "enabled": true
+        },
+        {
+          "on": "thinking",
+          "slot": "working",
+          "kind": "particles",
+          "variant": "sparkle",
+          "count": 6,
+          "enabled": true
+        },
+        {
+          "on": "wince",
+          "slot": "failure",
+          "kind": "particles",
+          "variant": "fizzle",
+          "count": 8,
+          "enabled": true
+        }
+      ]
+    },
+    "preview": {
+      "svg": "preview.svg",
+      "contactSheet": "contact-sheet.svg"
+    }
+  },
+  "assets": [
+    "preview.svg",
+    "contact-sheet.svg"
+  ],
+  "preview": "preview.svg"
+}
