@@ -1,7 +1,7 @@
 ---
 name: clawso-skin-creator
 description: Use when creating, repairing, validating, or packaging Clawso skin artifacts for Creator Studio, including tokens, scoped CSS, bundled assets, and image or video backgrounds.
-version: 1.1.0
+version: 1.2.0
 ---
 
 # Clawso Skin Creator
@@ -81,21 +81,43 @@ Supported authoring patterns:
 
 Prefer readability over spectacle. Video backgrounds should be short, optimized, subtle, and darkened enough that shell text, panels, buttons, and market cards remain legible.
 
+## System Limits And Background Budgets
+
+Treat these as Creator Studio/BFF compatibility limits. If a requested background exceeds them, optimize the media instead of producing a package that cannot pass preflight.
+
+Shared skin limits:
+
+- Bundle upload hard limit: 8 MiB. Keep authors under 5 MiB when possible.
+- Decompressed bundle hard limit: 24 MiB.
+- File count hard limit: 64 files.
+- Manifest JSON hard limit: 256 KiB.
+- Marketplace preview image hard limit: 1 MiB.
+- All manifest, `assets[]`, CSS `url(...)`, and `@font-face` paths must be bundled relative paths.
+
+Background media limits:
+
+- `background.video` and `background.image` use the skin background budget: 4 MiB hard limit, 2 MiB warning target.
+- There is no separate hard resolution or duration gate today; byte size and bundled-path policy are the enforceable checks.
+- Recommended video: 1280x720 preferred, 1920x1080 maximum unless the file still stays small, 3-8 second loop, 15 seconds maximum, 24 or 30 fps, H.264 MP4 or WebM, target under 2 MiB.
+- Recommended image: PNG/JPEG/WebP/GIF/APNG with longest edge at or below 2560 px, target under 2 MiB, hard stop at 4 MiB when used as `background.image`.
+- Always set `dim` for busy or bright media, and check legibility in Creator Studio before submission.
+
 ## Workflow
 
 1. Clarify the intended visual direction only when needed.
 2. Create or update the skin artifact using the v1 skin contract.
 3. Use tokens first, scoped CSS second, and bundled media/assets only when tokens cannot express the design.
-4. If using background media, copy it into the artifact directory, reference it with a bundled relative path, and set `dim`/`blur` for readability.
-5. Validate locally with the bootstrapped CLI.
-6. If local validation passes, optionally build a `.skin` bundle.
-7. Before submission, run dry-run publish planning when useful:
+4. If using background media, check the system limits above before copying or encoding the final asset.
+5. If using background media, copy it into the artifact directory, reference it with a bundled relative path, and set `dim`/`blur` for readability.
+6. Validate locally with the bootstrapped CLI.
+7. If local validation passes, optionally build a `.skin` bundle.
+8. Before submission, run dry-run publish planning when useful:
 
    ```bash
    node "$KIT/packages/skin-kit/dist/cli.js" publish <skin-dir> --dry-run --api <bff-url> --token test
    ```
 
-8. Tell the author how to import the artifact into Clawso Creator Studio for client preview, BFF preflight, pricing, and submission.
+9. Tell the author how to import the artifact into Clawso Creator Studio for client preview, BFF preflight, pricing, and submission.
 
 ## Rules
 
@@ -117,5 +139,6 @@ Return:
 - validation commands run and pass/fail state
 - dry-run publish plan when relevant
 - bundled asset list, especially background videos/images
+- size/media notes against the system limits above
 - known warnings or unsupported requests
 - next Creator Studio action: import, client preview, BFF preflight, price setup, or submit
