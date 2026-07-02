@@ -48,6 +48,22 @@ Preflight checks include:
 
 Preflight does not spend creator quota. Submission does.
 
+Current size and complexity gates:
+
+| Gate | Applies to | Limit |
+| --- | --- | --- |
+| Upload bundle | Skin and pet-pack | 8 MiB hard limit; 5 MiB warning target |
+| Decompressed bundle | Skin and pet-pack | 24 MiB hard limit |
+| File count | Skin and pet-pack | 64 files hard limit |
+| Manifest JSON | Skin and pet-pack | 256 KiB hard limit |
+| Marketplace preview image | Skin and pet-pack | 1 MiB hard limit |
+| Skin background media | Skin `background.video` / `background.image` | 4 MiB hard limit; 2 MiB warning target |
+| Rive pet file | Pet-pack `rivePet` `.riv` asset | 6 MiB hard limit; 3 MiB warning target |
+
+There is no separate hard pixel-resolution, FPS, or duration gate for skin background video or Rive pets today. Authors should still optimize for runtime quality: short looping videos, compressed images, small Rive artboards, stable state machines, and simple vector structures.
+
+Pet-pack contract limits are enforced by schema as well as BFF policy. Vector pets support 16 layers, 64 actions, 49 trigger slots, 48 persona phrases, and 64 reactive FX bindings. Rive pets must reference a bundled `.riv`, declare a state machine, and map at least one Clawso trigger slot to a Rive input.
+
 ## 3. Submission snapshot
 
 Submitting a passing artifact creates an immutable snapshot:
